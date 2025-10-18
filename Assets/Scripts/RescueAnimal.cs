@@ -28,11 +28,12 @@ public class RescueAnimal : MonoBehaviour
         if (timerActive)
         {
             timer -= Time.deltaTime;
-            Debug.Log($"[TIMER] {data.animalName}: {timer:F1}s");
+            RescueUIManager.Instance.UpdateTimer(timer); 
 
             if (timer <= 0)
             {
                 timerActive = false;
+                RescueUIManager.Instance.HideTimer();
                 RescueFailed();
             }
         }
@@ -65,6 +66,7 @@ public class RescueAnimal : MonoBehaviour
         if (!isRescued) return;
 
         timerActive = false;
+        RescueUIManager.Instance.HideTimer();
 
         if (timer > 0)
         {
