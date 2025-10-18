@@ -8,7 +8,7 @@ public class ItemSlotUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI itemQuantityText;
     [SerializeField] private Image itemIconImage;
 
-   public void SetItem(BagItem item)
+   public void SetBagItem(BagItem item)
    {
         if(item == null || item.data == null)
         {
