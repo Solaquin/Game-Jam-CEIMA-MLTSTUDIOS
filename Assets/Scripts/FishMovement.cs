@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Rigidbody))]
 public class FishMovement : MonoBehaviour
 {
 
@@ -12,14 +13,13 @@ public class FishMovement : MonoBehaviour
     public float detectionradius = 3.5f;
     
 
-    private Rigidbody2D rb;
+    private Rigidbody rb;
     private Vector2 direction;
     private bool alert = false;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.gravityScale = 0f;
+        rb = GetComponent<Rigidbody>();
         direction = Random.insideUnitCircle.normalized;
         if (direction == Vector2.zero) direction = Vector2.right;
     }
