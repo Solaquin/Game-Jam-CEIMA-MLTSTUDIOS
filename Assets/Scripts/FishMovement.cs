@@ -11,36 +11,68 @@ public class FishMovement : MonoBehaviour
     public float speedAfter = 6f;
 
     public float detectionradius = 3.5f;
-    
+
+    public float empujon = 0.02f;
 
     private Rigidbody rb;
-    private Vector2 direction;
+    private Vector3 direction;
     private bool alert = false;
+    private float z0;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         direction = Random.insideUnitCircle.normalized;
-        if (direction == Vector2.zero) direction = Vector2.right;
+        rb.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+        direction = Random.insideUnitCircle.normalized;
+        if (direction.sqrMagnitude < 1e-4f) direction = Vector2.right;
+        z0 = transform.position.z;
     }
 
     void Update()
     {
+
         if (!alert && player != null)
         {
-            float dist = Vector2.Distance(transform.position, player.position);
-            if (dist < detectionradius)
+            Vector2 toPlayer = (player.position - transform.position);
+            if (toPlayer.magnitude < detectionradius)
             {
                 Debug.Log("Alerta");
                 alert = true;
-                direction = -direction.normalized;
+                direction = (-toPlayer).normalized;
             }
         }
     }
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = direction * (alert ? speedAfter : speed);
+        Vector3 velXY = new Vector3(direction.x, direction.y, 0) * (alert ? speedAfter : speed);
+        rb.linearVelocity = velXY;
+    }
+
+
+    void OnCollisionEnter(Collision c)
+    {
+        if (c.contactCount == 0) return;
+
+  
+        Vector3 n3 = c.GetContact(0).normal;
+        Vector2 n = new Vector2(n3.x, n3.y).normalized;
+        if (n.sqrMagnitude < 1e-6f) { direction = -direction; }
+        else
+        {
+            
+            direction = Vector2.Reflect(direction, n).normalized;
+        }
+
+        Vector2 v = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y);
+        float into = Vector2.Dot(v, n); // <0 si se mete al muro
+        if (into < 0f) v -= n * into;
+
+        rb.position += new Vector3(n.x, n.y, 0f) * empujon;
+        rb.linearVelocity = new Vector3(direction.x, direction.y, 0f) * (alert ? speedAfter : speed);
+        alert = false;
+
     }
 
     private void OnDrawGizmosSelected()
