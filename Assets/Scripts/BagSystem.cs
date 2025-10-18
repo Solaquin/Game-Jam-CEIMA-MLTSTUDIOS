@@ -5,12 +5,15 @@ using UnityEngine;
 public class BagSystem : MonoBehaviour
 {
     public float bagCapacity = 100f; // Maximum weight capacity of the bag
+    public float currentWeight = 0f; // Current weight of items in the bag
 
     public List<BagItem> items = new List<BagItem>();
 
+    public event System.Action OnInventoryChanged;
+
     public bool AddItem(ScriptableObject item, int amount = 1)
     {
-        float currentWeight = GetCurrentWeight();
+        currentWeight = GetCurrentWeight();
         float itemWeight = 0f;
 
         if (item is TreasureData treasure)
@@ -48,6 +51,10 @@ public class BagSystem : MonoBehaviour
             };
             items.Add(newItem);
         }
+
+        currentWeight = GetCurrentWeight();
+
+        OnInventoryChanged?.Invoke();
         return true;
     }
 
@@ -61,6 +68,7 @@ public class BagSystem : MonoBehaviour
             {
                 items.Remove(existingItem);
             }
+            OnInventoryChanged?.Invoke();
         }
     }
 
