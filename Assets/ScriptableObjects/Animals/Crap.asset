@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Crap
   m_EditorClassIdentifier: Assembly-CSharp::AnimalData
   animalName: Cangrejo
-  rewardMoney: 0
-  rescueTimeLimit: 0
+  rewardMoney: 1
+  rescueTimeLimit: 10
