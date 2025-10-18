@@ -1,20 +1,19 @@
 using Unity.VisualScripting;
 using UnityEngine;
-
+public enum TargetType
+{
+    Player,
+    StaticPoint
+}
 public class CameraFollow : MonoBehaviour
 {
-    public enum TargetType
-    {
-        Player,
-        StaticPoint
-    }
+
 
     [SerializeField] private Transform target; // Reference to the player's Transform
     [SerializeField] private float smoothSpeed = 0.3f; // Smoothing speed for camera movement
     [SerializeField] private Vector3 offset; // Offset from the player's position
 
     private TargetType targetType = TargetType.Player; // Default target type
-
 
     private void LateUpdate()
     {

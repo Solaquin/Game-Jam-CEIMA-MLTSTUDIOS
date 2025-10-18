@@ -7,6 +7,7 @@ public class DiverMovement : MonoBehaviour
     [SerializeField] private float swimSpeed = 1f;
     [SerializeField] private float acceleration = 1f;
     [SerializeField] private float deceleration = 0.5f;
+    [SerializeField] private TargetType targetType = TargetType.Player;
 
     private Rigidbody2D rb;
     private Vector2 input;
