@@ -33,7 +33,7 @@ public class InventoryUI : MonoBehaviour
         {
             var slotObj = Instantiate(slotPrefab, slotFrame);
             var slotUI = slotObj.GetComponent<ItemSlotUI>();
-            slotUI.SetItem(bagItem);
+            slotUI.SetBagItem(bagItem);
             activeSlots.Add(slotUI);
         }
 
