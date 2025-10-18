@@ -3,17 +3,17 @@ using UnityEngine;
 public class OxygenSystem : MonoBehaviour
 {
     [Header("Oxygen Settings")]
-    [SerializeField] private float maxOxygen = 100f;
-    [SerializeField] private float oxygenDrainMoving = 10f;
-    [SerializeField] private float oxygenDrainIdle = 2f;
+    [SerializeField] private float maxOxygen = 100;
+    [SerializeField] private float oxygenDrainMoving = 2f;
+    [SerializeField] private float oxygenDrainIdle = 1f;
 
     private float currentOxygen;
     private bool isInSafeZone = false;
-    private Rigidbody2D rb;
+    private Rigidbody rb;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
         currentOxygen = maxOxygen;
     }
 
