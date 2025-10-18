@@ -10,31 +10,28 @@ public class DiverMovement : MonoBehaviour
     [SerializeField] private float deceleration = 0.5f;
     [SerializeField] private float surfaceY = 32.5f;
 
- 
-
     private Rigidbody rb;
     private Vector3 input;
     private Vector3 currentVelocity;
     private bool isUnderwater = true;
 
+    private RescueAnimal currentAnimal;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         EnterUnderwaterMode();
-        
     }
 
     void Update()
     {
         input.x = Input.GetAxis("Horizontal");
-
         if (isUnderwater)
             input.y = Input.GetAxis("Vertical");
         else
             input.y = 0f;
 
         input = input.normalized;
-
         CheckSurfaceTransition();
     }
 
@@ -48,7 +45,6 @@ public class DiverMovement : MonoBehaviour
         float speed = isUnderwater ? swimSpeed : walkSpeed;
 
         Vector3 targetVelocity = input * speed;
-
         if (!isUnderwater)
             targetVelocity.y = rb.linearVelocity.y;
 
@@ -87,7 +83,17 @@ public class DiverMovement : MonoBehaviour
         rb.useGravity = true;
         rb.linearDamping = 0f;
         Debug.Log("Tierra");
+
+        if (currentAnimal != null)
+        {
+            currentAnimal.ReachBase();
+            currentAnimal = null; // limpiamos la referencia
+        }
     }
 
-
+    // método para asignar el animal rescatado desde otro script
+    public void SetRescuedAnimal(RescueAnimal animal)
+    {
+        currentAnimal = animal;
+    }
 }
