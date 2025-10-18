@@ -14,19 +14,19 @@ public class RescueInteraction : MonoBehaviour
 
         if (currentAnimal != null && !RescueAnimal.hasActiveRescue)
         {
-            // Mostrar mensaje de interacción
-            RescueUIManager.Instance.ShowInteractText(true);
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(currentAnimal.transform.position + Vector3.up * 1.5f);
-            RescueUIManager.Instance.interactText.transform.position = screenPos;
+            float timeLimit = currentAnimal.data != null ? currentAnimal.data.rescueTimeLimit : 0f;
+
+            RescueUIManager.Instance.UpdateRescuePrompt(currentAnimal.transform.position, timeLimit);
+
             if (Input.GetKeyDown(KeyCode.E))
             {
                 currentAnimal.Rescue(playerDiverMovementReference);
-                RescueUIManager.Instance.ShowInteractText(false); // ocultar mensaje al rescatar
+                RescueUIManager.Instance.HideRescuePrompt();
             }
         }
         else
         {
-            RescueUIManager.Instance.ShowInteractText(false);
+            RescueUIManager.Instance.HideRescuePrompt();
         }
     }
 
