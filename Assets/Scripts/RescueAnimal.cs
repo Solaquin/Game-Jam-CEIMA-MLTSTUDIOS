@@ -9,17 +9,27 @@ public class RescueAnimal : MonoBehaviour
     private bool timerActive = false;
     private float timer;
 
-    void Start()
+    public static bool hasActiveRescue = false; // Evita más de un rescate a la vez
+
+    private Renderer meshRenderer;
+    private Collider animalCollider;
+
+    private void Start()
     {
         if (data != null)
             timer = data.rescueTimeLimit;
+
+        meshRenderer = GetComponentInChildren<Renderer>();
+        animalCollider = GetComponent<Collider>();
     }
 
-    void Update()
+    private void Update()
     {
         if (timerActive)
         {
             timer -= Time.deltaTime;
+            Debug.Log($"[TIMER] {data.animalName}: {timer:F1}s");
+
             if (timer <= 0)
             {
                 timerActive = false;
@@ -28,14 +38,26 @@ public class RescueAnimal : MonoBehaviour
         }
     }
 
-    public void Rescue()
+    public void Rescue(DiverMovement diver)
     {
-        if (isRescued) return;
+        if (isRescued || hasActiveRescue)
+        {
+            Debug.Log("Ya estás rescatando a un animal o este ya fue rescatado.");
+            return;
+        }
 
         isRescued = true;
         timerActive = true;
-        Debug.Log($"{data.animalName} rescatado. Tiempo: {timer:F1}s para volver a base");
-        // Podrías activar una animación o hacer que siga al jugador
+        hasActiveRescue = true;
+
+        Debug.Log($"{data.animalName} rescatado. Tiempo: {timer:F1}s para volver a base.");
+
+        // En lugar de SetActive(false), solo ocultamos el modelo
+        if (meshRenderer != null) meshRenderer.enabled = false;
+        if (animalCollider != null) animalCollider.enabled = false;
+
+        diver.SetRescuedAnimal(this);
+
     }
 
     public void ReachBase()
@@ -54,18 +76,22 @@ public class RescueAnimal : MonoBehaviour
             Debug.Log($"{data.animalName} no sobrevivió al rescate :(");
         }
 
+        hasActiveRescue = false;
         Destroy(gameObject);
     }
 
     private void GiveReward()
     {
-        // Aquí sumás dinero al jugador
-        //PlayerStats.Instance.AddMoney(data.rewardMoney);
+        // Ejemplo de recompensa
+        // PlayerStats.Instance.AddMoney(data.rewardMoney);
     }
 
     private void RescueFailed()
     {
-        Debug.Log($"{data.animalName} no logró sobrevivir.");
-        // Podés penalizar puntos o simplemente mostrar mensaje
+        Debug.Log($"{data.animalName} no logró sobrevivir al rescate (tiempo agotado).");
+        hasActiveRescue = false;
+        isRescued = false;
+        // Opcional: destruir el objeto si querés que desaparezca tras fallar
+        Destroy(gameObject);
     }
 }
