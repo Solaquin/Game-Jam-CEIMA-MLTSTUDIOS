@@ -9,7 +9,7 @@ public class VacuumSystem : MonoBehaviour
     [SerializeField] private float suctionAngle = 45f;
     [SerializeField] private Transform suctionPoint;
     [SerializeField] private LayerMask collectibleLayer;
-
+    private BagSystem bagSystem;
     private bool isSucking = false;
     private Camera mainCamera;
 
