@@ -16,7 +16,7 @@ public class VacuumSystem : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
-        bagSystem = GetComponent<BagSystem>();
+
         if (suctionPoint == null)
             suctionPoint = transform;
     }
@@ -50,30 +50,7 @@ public class VacuumSystem : MonoBehaviour
         suctionPoint.rotation = Quaternion.Euler(0, 0, angle);
     }
 
-    void TryAbsorbItem(GameObject obj)
-    {
-        CollectibleItem collectible = obj.GetComponent<CollectibleItem>();
-        if (collectible == null)
-        {
-            Debug.LogWarning($"{obj.name} no tiene CollectibleItem, se destruye sin añadir.");
-            Destroy(obj);
-            return;
-        }
 
-        if (bagSystem != null && collectible.itemData != null)
-        {
-            bool added = bagSystem.AddItem(collectible.itemData, collectible.quantity);
-            if (added)
-            {
-                Debug.Log($"Absorbido y añadido al inventario: {collectible.itemData.name}");
-                Destroy(obj);
-            }
-            else
-            {
-                Debug.Log("No se pudo agregar, bolsa llena.");
-            }
-        }
-    }
 
     void SuctionLogic()
     {
@@ -92,7 +69,8 @@ public class VacuumSystem : MonoBehaviour
                 float distance = Vector3.Distance(rb.position, suctionPoint.position);
                 if (distance < absorbDistance)
                 {
-                    TryAbsorbItem(hit.gameObject);
+                    Debug.Log($"Absorbido: {hit.gameObject.name}");
+                    Destroy(hit.gameObject);
                 }
             }
         }
