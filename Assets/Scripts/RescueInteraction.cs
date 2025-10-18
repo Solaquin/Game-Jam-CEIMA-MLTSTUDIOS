@@ -12,12 +12,21 @@ public class RescueInteraction : MonoBehaviour
     {
         CheckForAnimal();
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (currentAnimal != null && !RescueAnimal.hasActiveRescue)
         {
-            if (currentAnimal != null)
+            // Mostrar mensaje de interacción
+            RescueUIManager.Instance.ShowInteractText(true);
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(currentAnimal.transform.position + Vector3.up * 1.5f);
+            RescueUIManager.Instance.interactText.transform.position = screenPos;
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 currentAnimal.Rescue(playerDiverMovementReference);
+                RescueUIManager.Instance.ShowInteractText(false); // ocultar mensaje al rescatar
             }
+        }
+        else
+        {
+            RescueUIManager.Instance.ShowInteractText(false);
         }
     }
 
