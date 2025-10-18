@@ -6,7 +6,8 @@ public class VacuumSystem : MonoBehaviour
     [SerializeField] private float suctionRadius = 5f;
     [SerializeField] private float suctionForce = 10f;
     [SerializeField] private float absorbDistance = 1f;
-    [SerializeField] private Transform suctionPoint; 
+    [SerializeField] private float suctionAngle = 45f;
+    [SerializeField] private Transform suctionPoint;
     [SerializeField] private LayerMask collectibleLayer;
 
     private bool isSucking = false;
@@ -15,6 +16,9 @@ public class VacuumSystem : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
+
+        if (suctionPoint == null)
+            suctionPoint = transform;
     }
 
     void Update()
@@ -37,40 +41,71 @@ public class VacuumSystem : MonoBehaviour
     {
         if (mainCamera == null) return;
 
-        Vector3 mousePos = Input.mousePosition;
-        Vector3 worldMouse = mainCamera.ScreenToWorldPoint(mousePos);
-        worldMouse.z = transform.position.z;
+        Vector2 mouseScreenPos = Input.mousePosition;
+        Vector2 playerScreenPos = mainCamera.WorldToScreenPoint(suctionPoint.position);
 
-        Vector3 dir = worldMouse - transform.position;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        Vector2 direction = (mouseScreenPos - playerScreenPos).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         suctionPoint.rotation = Quaternion.Euler(0, 0, angle);
     }
 
+
+
     void SuctionLogic()
     {
-        Collider[] hits = Physics.OverlapSphere(suctionPoint.position, suctionRadius);
-        Debug.Log($"Detectados: {hits.Length}");
+        Collider[] hits = Physics.OverlapSphere(suctionPoint.position, suctionRadius, collectibleLayer);
 
         foreach (var hit in hits)
         {
-            Debug.Log($"? Detectado: {hit.gameObject.name}");
-            Rigidbody rb = hit.attachedRigidbody;
-            if (rb == null)
+            if (IsInCone(hit.transform.position))
             {
-                Debug.Log($"Sin Rigidbody: {hit.name}");
-                continue;
-            }
+                Rigidbody rb = hit.attachedRigidbody;
+                if (rb == null) continue;
 
-            Vector3 direction = (suctionPoint.position - rb.position).normalized;
-            rb.AddForce(direction * suctionForce, ForceMode.Acceleration);
+                Vector3 direction = (suctionPoint.position - rb.position).normalized;
+                rb.AddForce(direction * suctionForce, ForceMode.Acceleration);
+
+                float distance = Vector3.Distance(rb.position, suctionPoint.position);
+                if (distance < absorbDistance)
+                {
+                    Debug.Log($"Absorbido: {hit.gameObject.name}");
+                    Destroy(hit.gameObject);
+                }
+            }
         }
+    }
+
+    bool IsInCone(Vector3 targetPosition)
+    {
+        Vector3 directionToTarget = (targetPosition - suctionPoint.position).normalized;
+        Vector3 coneDirection = suctionPoint.right;
+
+        float angleToTarget = Vector3.Angle(coneDirection, directionToTarget);
+        return angleToTarget <= suctionAngle * 0.5f;
     }
 
     void OnDrawGizmosSelected()
     {
         if (suctionPoint == null) return;
-        Gizmos.color = Color.cyan;
+
+        Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(suctionPoint.position, suctionRadius);
+
+        Gizmos.color = Color.cyan;
+        DrawConeGizmo();
+    }
+
+    void DrawConeGizmo()
+    {
+        Vector3 coneDirection = suctionPoint.right;
+        float halfAngle = suctionAngle * 0.5f;
+
+        Vector3 leftBound = Quaternion.Euler(0, 0, halfAngle) * coneDirection * suctionRadius;
+        Vector3 rightBound = Quaternion.Euler(0, 0, -halfAngle) * coneDirection * suctionRadius;
+
+        Gizmos.DrawLine(suctionPoint.position, suctionPoint.position + leftBound);
+        Gizmos.DrawLine(suctionPoint.position, suctionPoint.position + rightBound);
+        Gizmos.DrawLine(suctionPoint.position + leftBound, suctionPoint.position + rightBound);
     }
 }
