@@ -10,6 +10,8 @@ public class DiverMovement : MonoBehaviour
     [SerializeField] private float deceleration = 0.5f;
     [SerializeField] private float surfaceY = 32.5f;
 
+ 
+
     private Rigidbody rb;
     private Vector3 input;
     private Vector3 currentVelocity;
@@ -19,6 +21,7 @@ public class DiverMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         EnterUnderwaterMode();
+        
     }
 
     void Update()
@@ -85,4 +88,6 @@ public class DiverMovement : MonoBehaviour
         rb.linearDamping = 0f;
         Debug.Log("Tierra");
     }
+
+
 }

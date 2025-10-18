@@ -16,8 +16,8 @@ TagManager:
   - collectibleLayer
   - Fish
   - animalLayer
-  - 
-  - 
+  - WaterSystem_Water
+  - WaterSystem_Reflections
   - 
   - 
   - 
@@ -42,6 +42,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: WaterTopMesh
+    uniqueID: 907149137
+    locked: 0
+  - name: WaterFrontMesh
+    uniqueID: 1107744423
     locked: 0
   m_RenderingLayers:
   - Default
