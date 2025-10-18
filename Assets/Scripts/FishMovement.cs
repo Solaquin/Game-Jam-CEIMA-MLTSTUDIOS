@@ -1,85 +1,116 @@
 using UnityEngine;
-using System.Collections;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public class FishMovement : MonoBehaviour
 {
-
     public Transform player;
-    [SerializeField]
+
+    [Header("Velocidades")]
     public float speed = 2f;
     public float speedAfter = 6f;
 
-    public float detectionradius = 3.5f;
+    [Header("Detección")]
+    public float detectionRadius = 3.5f;
+    public bool respondToPlayer = true; // false en Z ≠ 0
 
-    public float empujon = 0.02f;
+    [Header("Alert timing")]
+    [Tooltip("Tiempo que permanece en alerta (acelerado) después de detectar al player.")]
+    public float alertDuration = 1.5f;
+    [Tooltip("Tiempo de espera tras salir de alerta antes de poder volver a entrar.")]
+    public float alertRearmDelay = 0.75f;
+
+    [Header("Colisión / Anti-pegarse")]
+    public float pushOff = 0.02f;
 
     private Rigidbody rb;
-    private Vector3 direction;
+    private Vector3 dirXY;
     private bool alert = false;
     private float z0;
 
-    private void Awake()
+    // temporizadores de alerta
+    private float alertUntil = -1f;
+    private float nextAlertAllowedTime = 0f;
+
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        direction = Random.insideUnitCircle.normalized;
+        rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
-        direction = Random.insideUnitCircle.normalized;
-        if (direction.sqrMagnitude < 1e-4f) direction = Vector2.right;
+
+        Vector2 r = Random.insideUnitCircle.normalized;
+        if (r.sqrMagnitude < 1e-4f) r = Vector2.right;
+        dirXY = new Vector3(r.x, r.y, 0f);
+
         z0 = transform.position.z;
+    }
+
+    public void SetPlayer(Transform p) => player = p;
+
+    public void SetDepthAndBehavior(float z, bool respond)
+    {
+        z0 = z;
+        respondToPlayer = respond;
+        var p = transform.position; p.z = z0; transform.position = p;
     }
 
     void Update()
     {
+        float now = Time.time;
 
-        if (!alert && player != null)
+        // Salir de alerta cuando se cumpla la duración
+        if (alert && now >= alertUntil)
         {
-            Vector2 toPlayer = (player.position - transform.position);
-            if (toPlayer.magnitude < detectionradius)
+            alert = false;
+            // (ya quedó programado nextAlertAllowedTime cuando entró a alerta)
+        }
+
+        // Entrar a alerta si corresponde (solo si rearmado cumplido)
+        if (!alert && respondToPlayer && player != null && now >= nextAlertAllowedTime)
+        {
+            Vector2 toPlayer = (Vector2)(player.position - transform.position);
+            if (toPlayer.magnitude <= detectionRadius)
             {
-                Debug.Log("Alerta");
                 alert = true;
-                direction = (-toPlayer).normalized;
+                alertUntil = now + alertDuration;
+                nextAlertAllowedTime = alertUntil + alertRearmDelay;
+
+                Vector2 away = -toPlayer;
+                if (away.sqrMagnitude > 1e-6f)
+                    dirXY = new Vector3(away.x, away.y, 0f).normalized;
             }
         }
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
-        Vector3 velXY = new Vector3(direction.x, direction.y, 0) * (alert ? speedAfter : speed);
+        Vector3 velXY = dirXY * (alert ? speedAfter : speed);
+        velXY.z = 0f;
         rb.linearVelocity = velXY;
-    }
 
+        if (Mathf.Abs(rb.position.z - z0) > 1e-4f)
+            rb.position = new Vector3(rb.position.x, rb.position.y, z0);
+    }
 
     void OnCollisionEnter(Collision c)
     {
         if (c.contactCount == 0) return;
 
-  
-        Vector3 n3 = c.GetContact(0).normal;
-        Vector2 n = new Vector2(n3.x, n3.y).normalized;
-        if (n.sqrMagnitude < 1e-6f) { direction = -direction; }
-        else
-        {
-            
-            direction = Vector2.Reflect(direction, n).normalized;
-        }
+        Vector3 n = c.GetContact(0).normal;
 
-        Vector2 v = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y);
-        float into = Vector2.Dot(v, n); // <0 si se mete al muro
-        if (into < 0f) v -= n * into;
+        // Rebote (reflect) como antes
+        dirXY = Vector3.Reflect(dirXY, n);
+        dirXY.z = 0f;
+        if (dirXY.sqrMagnitude < 1e-6f) dirXY = -new Vector3(n.x, n.y, 0f);
+        dirXY = dirXY.normalized;
 
-        rb.position += new Vector3(n.x, n.y, 0f) * empujon;
-        rb.linearVelocity = new Vector3(direction.x, direction.y, 0f) * (alert ? speedAfter : speed);
-        alert = false;
-
+        // Empujoncito fuera de la pared y re-aplicar velocidad
+        rb.position += new Vector3(n.x, n.y, 0f) * pushOff;
+        rb.linearVelocity = dirXY * (alert ? speedAfter : speed);
     }
 
-    private void OnDrawGizmosSelected()
+    void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere( transform.position, detectionradius);
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
-
-
 }
