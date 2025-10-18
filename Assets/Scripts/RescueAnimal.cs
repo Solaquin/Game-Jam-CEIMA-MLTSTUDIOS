@@ -66,7 +66,7 @@ public class RescueAnimal : MonoBehaviour
         if (!isRescued) return;
 
         timerActive = false;
-        RescueUIManager.Instance.HideTimer();
+        RescueUIManager.Instance.HideTimer();   
 
         if (timer > 0)
         {
