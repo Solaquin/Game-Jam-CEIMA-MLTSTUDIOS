@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody))]
 public class DiverMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
@@ -9,13 +9,13 @@ public class DiverMovement : MonoBehaviour
     [SerializeField] private float deceleration = 0.5f;
     [SerializeField] private TargetType targetType = TargetType.Player;
 
-    private Rigidbody2D rb;
+    private Rigidbody rb;
     private Vector2 input;
     private Vector2 currentVelocity;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
