@@ -20,7 +20,7 @@ public class OxygenSystem : MonoBehaviour
     void Update()
     {
         HandleOxygen();
-        Debug.Log($"Oxygen: {currentOxygen}");
+        //Debug.Log($"Oxygen: {currentOxygen}");
         //Debug.Log($"Magnitude: {rb.linearVelocity.magnitude}");
     }
 
