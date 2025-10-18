@@ -15,6 +15,7 @@ public class VacuumSystem : MonoBehaviour
 
     void Start()
     {
+        bagSystem = GetComponent<BagSystem>();
         mainCamera = Camera.main;
 
         if (suctionPoint == null)
@@ -69,6 +70,7 @@ public class VacuumSystem : MonoBehaviour
                 float distance = Vector3.Distance(rb.position, suctionPoint.position);
                 if (distance < absorbDistance)
                 {
+                    bagSystem.AddItem(hit.gameObject.GetComponent<CollectibleItem>().itemData, 1);
                     Debug.Log($"Absorbido: {hit.gameObject.name}");
                     Destroy(hit.gameObject);
                 }
