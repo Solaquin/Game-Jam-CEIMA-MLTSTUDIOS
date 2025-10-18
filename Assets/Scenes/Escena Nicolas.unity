@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 1929914601}
   - component: {fileID: 1929914600}
   - component: {fileID: 1929914598}
+  - component: {fileID: 1929914604}
   - component: {fileID: 1929914603}
   m_Layer: 0
   m_Name: Capsule
@@ -291,6 +292,7 @@ MonoBehaviour:
   swimSpeed: 50
   acceleration: 5
   deceleration: 5
+  targetType: 0
 --- !u!23 &1929914600
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -389,6 +391,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1929914604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929914597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 995e5f446337c1d4ca2be0ed45448899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OxygenSystem
+  maxOxygen: 100
+  oxygenDrainMoving: 2
+  oxygenDrainIdle: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
