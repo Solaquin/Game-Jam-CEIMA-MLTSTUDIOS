@@ -143,6 +143,7 @@ public class VacuumSystem : MonoBehaviour
         return angleToTarget <= suctionAngle * 0.5f;
     }
 
+
     void OnDrawGizmosSelected()
     {
         if (suctionPoint == null) return;
@@ -164,8 +165,21 @@ public class VacuumSystem : MonoBehaviour
 
         Gizmos.DrawLine(suctionPoint.position, suctionPoint.position + leftBound);
         Gizmos.DrawLine(suctionPoint.position, suctionPoint.position + rightBound);
-        Gizmos.DrawLine(suctionPoint.position + leftBound, suctionPoint.position + rightBound);
+
+        // Dibuja el arco del círculo para mostrar el límite del radio completo
+        int segments = 20;
+        for (int i = 0; i <= segments; i++)
+        {
+            float t1 = -halfAngle + (i * (suctionAngle / segments));
+            float t2 = -halfAngle + ((i + 1) * (suctionAngle / segments));
+
+            Vector3 p1 = suctionPoint.position + Quaternion.Euler(0, 0, t1) * coneDirection * suctionRadius;
+            Vector3 p2 = suctionPoint.position + Quaternion.Euler(0, 0, t2) * coneDirection * suctionRadius;
+
+            Gizmos.DrawLine(p1, p2);
+        }
     }
+
     public void SetSuctionRadius(float newRadius)
     {
         suctionRadius = newRadius;
@@ -179,4 +193,5 @@ public class VacuumSystem : MonoBehaviour
 
     public float GetSuctionRadius() => suctionRadius;
     public float GetSuctionAngle() => suctionAngle;
+    public bool IsSucking => isSucking;
 }
