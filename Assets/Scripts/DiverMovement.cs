@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody))]
 public class DiverMovement : MonoBehaviour
@@ -9,6 +10,10 @@ public class DiverMovement : MonoBehaviour
     [SerializeField] private float acceleration = 1f;
     [SerializeField] private float deceleration = 0.5f;
     [SerializeField] private float surfaceY = 32.5f;
+
+    [Header("Animator")]
+    private Animator animator;
+
 
     private Rigidbody rb;
     private Vector3 input;
@@ -21,10 +26,13 @@ public class DiverMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         EnterUnderwaterMode();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
+
+        
         input.x = Input.GetAxis("Horizontal");
         if (isUnderwater)
             input.y = Input.GetAxis("Vertical");
@@ -33,6 +41,8 @@ public class DiverMovement : MonoBehaviour
 
         input = input.normalized;
         CheckSurfaceTransition();
+
+        animator.SetFloat("Horizontal", Mathf.Abs(input.x));
     }
 
     void FixedUpdate()
