@@ -44,6 +44,13 @@ public class DiverMovement : MonoBehaviour
         CheckSurfaceTransition();
 
         animator.SetFloat("Horizontal", Mathf.Abs(input.x));
+        if (Mathf.Abs(input.x) > 0.01f)
+        {
+            var s = transform.localScale;
+            s.x = Mathf.Abs(s.x) * (input.x > 0f ? 1f : -1f);
+            transform.localScale = s;
+        }
+        animator.SetFloat("Down", Mathf.Abs(input.y));
     }
 
     void FixedUpdate()

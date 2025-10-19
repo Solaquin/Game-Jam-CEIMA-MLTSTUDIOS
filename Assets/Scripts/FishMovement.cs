@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
@@ -11,7 +12,7 @@ public class FishMovement : MonoBehaviour
 
     [Header("Detección")]
     public float detectionRadius = 3.5f;
-    public bool respondToPlayer = true; // false en Z ≠ 0
+    public bool respondToPlayer = true; 
 
     [Header("Alert timing")]
     [Tooltip("Tiempo que permanece en alerta (acelerado) después de detectar al player.")]
@@ -21,6 +22,20 @@ public class FishMovement : MonoBehaviour
 
     [Header("Colisión / Anti-pegarse")]
     public float pushOff = 0.02f;
+
+    [Header("Limites Y")]
+    public bool limitY = true;
+    public float yMin = 0f;
+    public float yMax = 21f;
+    public bool bounceOnLimits = true;
+
+    [Header("Orientación del sprite")]
+    [Tooltip("Hace que el pez apunte en la dirección en que se mueve")]
+    public bool faceMovement = true;
+    [Tooltip("Suavizado del giro (grados/seg). 0 = giro instantáneo")]
+    public float turnSmoothing = 720f; // prueba 360–1080
+    [Tooltip("Velocidad mínima para considerar un cambio de orientación")]
+    public float minFaceSpeed = 0.05f;
 
     private Rigidbody rb;
     private Vector3 dirXY;
@@ -53,18 +68,24 @@ public class FishMovement : MonoBehaviour
         var p = transform.position; p.z = z0; transform.position = p;
     }
 
+    public void SetYBounds(float min, float max, bool bounce = true)
+    {
+        limitY = true;
+        yMin = min;
+        yMax = max;
+        bounceOnLimits = bounce;
+    }
+
     void Update()
     {
         float now = Time.time;
 
-        // Salir de alerta cuando se cumpla la duración
         if (alert && now >= alertUntil)
         {
             alert = false;
-            // (ya quedó programado nextAlertAllowedTime cuando entró a alerta)
+
         }
 
-        // Entrar a alerta si corresponde (solo si rearmado cumplido)
         if (!alert && respondToPlayer && player != null && now >= nextAlertAllowedTime)
         {
             Vector2 toPlayer = (Vector2)(player.position - transform.position);
@@ -89,6 +110,50 @@ public class FishMovement : MonoBehaviour
 
         if (Mathf.Abs(rb.position.z - z0) > 1e-4f)
             rb.position = new Vector3(rb.position.x, rb.position.y, z0);
+
+        if (limitY)
+        {
+            var pos = rb.position;
+            bool bounced = false;
+
+            if (pos.y > yMax)
+            {
+                pos.y = yMax;
+                if (bounceOnLimits)
+                {
+                    dirXY.y = -Mathf.Abs(dirXY.y);
+                    bounced = true;
+                }
+            }
+            else if(pos.y < yMin)
+            {
+                pos.y = yMin;
+                if(bounceOnLimits)
+                {
+                    dirXY.y = Mathf.Abs(dirXY.y);
+                    bounced = true;
+                }
+            }
+            if (bounced)
+                rb.linearVelocity = dirXY * (alert ? speedAfter : speed);
+
+            rb.position = new Vector3(pos.x, pos.y, z0);
+        }
+        if (faceMovement)
+        {
+            Vector3 v = rb.linearVelocity;
+            v.z = 0f;
+
+            if (v.sqrMagnitude > minFaceSpeed * minFaceSpeed)
+            {
+  
+                float targetAngle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+
+                float current = transform.eulerAngles.z;
+                float newZ = Mathf.MoveTowardsAngle(current, targetAngle, turnSmoothing * Time.fixedDeltaTime);
+                transform.rotation = Quaternion.Euler(0f, 0f, newZ);
+            }
+        }
     }
 
     void OnCollisionEnter(Collision c)
