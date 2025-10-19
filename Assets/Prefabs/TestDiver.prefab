@@ -47,6 +47,8 @@ GameObject:
   - component: {fileID: -4698831342588791683}
   - component: {fileID: 7686254041829999761}
   - component: {fileID: 2836799736531244021}
+  - component: {fileID: 3322479412768508150}
+  - component: {fileID: 6523954462695013385}
   m_Layer: 0
   m_Name: TestDiver
   m_TagString: Player
@@ -161,6 +163,8 @@ MonoBehaviour:
   maxOxygen: 100
   oxygenDrainMoving: 2
   oxygenDrainIdle: 1
+  noOxygenCanvas: {fileID: 0}
+  surfaceZone: {fileID: 0}
 --- !u!114 &6274922257102495741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,6 +200,11 @@ MonoBehaviour:
   collectibleLayer:
     serializedVersion: 2
     m_Bits: 0
+  audioSource: {fileID: 0}
+  suctionLoopSound: {fileID: 0}
+  collectSound: {fileID: 0}
+  suctionVolume: 0.7
+  collectVolume: 1
 --- !u!54 &7686254041829999761
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -244,3 +253,37 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &3322479412768508150
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3610673960789600227}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6523954462695013385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3610673960789600227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faeb2a9da93a2f14eb28dc57f9487915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimatorVerticalSign
