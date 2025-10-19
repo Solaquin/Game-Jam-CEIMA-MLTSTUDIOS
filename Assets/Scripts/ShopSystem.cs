@@ -62,26 +62,27 @@ public class ShopSystem : MonoBehaviour
         playerStats.money -= cost;
         upgradeLevels[upgrade]++;
         float newValue = upgrade.GetValueAtLevel(upgradeLevels[upgrade]);
+
         if (vacuumSystem != null)
         {
-            switch (upgrade.upgradeName)
+            switch (upgrade.ID)
             {
-                case "Vacuum Mouth":
-                    //Debug.Log($"Nuevo valor para Angulo: {newValue}");
-                    vacuumSystem.SetSuctionAngle(newValue);
-                    break;
+                case 0: //Bag Capacity
 
-                case "Vacuum Motor":
-                    //Debug.Log($"Nuevo valor para Radio: {newValue}");
-                    vacuumSystem.SetSuctionRadius(newValue);
+                    playerBag.SetMaxBagCapacity(newValue);
                     break;
-                case "Oxygen Tank":
+                case 1: //Flippers
+                    diverMovement.SetSwimSpeed(newValue);
+                    break;
+                case 2: //Oxygen Tank
                     //Debug.Log($"Nuevo valor para Oxígeno: {newValue}");
                     oxygenSystem.SetMaxOxygen(newValue);
                     break;
-                case "Flippers":
-                    //Debug.Log($"Nuevo valor para Velocidad de nado: {newValue}");
-                    diverMovement.SetSwimSpeed(newValue);
+                case 3: //Vacuum Motor
+                    vacuumSystem.SetSuctionRadius(newValue);
+                    break;
+                case 4: //Vacuum Mouth
+                    vacuumSystem.SetSuctionAngle(newValue);
                     break;
             }
         }

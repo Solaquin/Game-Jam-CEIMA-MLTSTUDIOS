@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17758f4a802d974c8d28c4cb82b216f, type: 3}
   m_Name: Bag
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
+  ID: 0
   upgradeName: Capacidad Mochila
   sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   description: "A\xF1ade m\xE1s capacidad a tu mochila"
   maxLevel: 5
   costPerLevel: 640000002c010000f401000020030000b0040000
-  baseValue: 60
+  baseValue: 80
   incrementPerLevel: 20

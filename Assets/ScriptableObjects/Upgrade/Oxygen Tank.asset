@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17758f4a802d974c8d28c4cb82b216f, type: 3}
   m_Name: Oxygen Tank
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
+  ID: 2
   upgradeName: Oxygen Tank
   sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   description: "Tanque de Oxigeno para resistir m\xE1s tiempo debajo del agua"

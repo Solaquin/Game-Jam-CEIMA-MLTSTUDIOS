@@ -7,5 +7,6 @@ public class PlayerStats : MonoBehaviour
     public float oxygenCapacity = 100f;
     public float suctionRadius = 5f;
     public float suctionAngle = 45f;
+    public float bagCapacity = 60f;
 
 }
