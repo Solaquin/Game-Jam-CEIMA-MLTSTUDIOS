@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TV
   m_EditorClassIdentifier: Assembly-CSharp::TrashData
   itemName: TV
-  sprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  sprite: {fileID: -688662523, guid: 0773f7f18e0354844910a4a206e38cd5, type: 3}
   description: TV
   price: 2
   weight: 2
