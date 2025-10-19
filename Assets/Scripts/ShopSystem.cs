@@ -6,6 +6,9 @@ public class ShopSystem : MonoBehaviour
     [Header("References")]
     [SerializeField] private BagSystem playerBag;
     [SerializeField] private PlayerStats playerStats;
+    [SerializeField] private VacuumSystem vacuumSystem;
+    [SerializeField] private DiverMovement diverMovement;
+    [SerializeField] private OxygenSystem oxygenSystem;
 
     [Header("Available Upgrades")]
     [SerializeField] private UpgradeData[] availableUpgrades;
@@ -14,7 +17,13 @@ public class ShopSystem : MonoBehaviour
     private Dictionary<UpgradeData, int> upgradeLevels = new();
 
     public IReadOnlyList<UpgradeData> Upgrades => availableUpgrades;
+    private void Awake()
+    {
+        if (vacuumSystem == null)
+            vacuumSystem = FindFirstObjectByType<VacuumSystem>();
 
+        InitializeUpgrades();
+    }
     public void InitializeUpgrades()
     {
         foreach (var upgrade in availableUpgrades)
@@ -31,6 +40,7 @@ public class ShopSystem : MonoBehaviour
 
     public bool TryBuyUpgrade(UpgradeData upgrade)
     {
+        //Debug.Log($"VacuumSystem referencia: {vacuumSystem.name}");
         if (!upgradeLevels.ContainsKey(upgrade))
             upgradeLevels[upgrade] = 0;
 
@@ -49,11 +59,36 @@ public class ShopSystem : MonoBehaviour
             Debug.Log("No tienes suficiente dinero.");
             return false;
         }
-
         playerStats.money -= cost;
         upgradeLevels[upgrade]++;
+        float newValue = upgrade.GetValueAtLevel(upgradeLevels[upgrade]);
+        if (vacuumSystem != null)
+        {
+            switch (upgrade.upgradeName)
+            {
+                case "Vacuum Mouth":
+                    //Debug.Log($"Nuevo valor para Angulo: {newValue}");
+                    vacuumSystem.SetSuctionAngle(newValue);
+                    break;
 
-        Debug.Log($"Comprado {upgrade.upgradeName}, nuevo nivel: {upgradeLevels[upgrade]}");
+                case "Vacuum Motor":
+                    //Debug.Log($"Nuevo valor para Radio: {newValue}");
+                    vacuumSystem.SetSuctionRadius(newValue);
+                    break;
+                case "Oxygen Tank":
+                    //Debug.Log($"Nuevo valor para Oxígeno: {newValue}");
+                    oxygenSystem.SetMaxOxygen(newValue);
+                    break;
+                case "Flippers":
+                    //Debug.Log($"Nuevo valor para Velocidad de nado: {newValue}");
+                    diverMovement.SetSwimSpeed(newValue);
+                    break;
+            }
+        }
+
+        
+
+        Debug.Log($"Comprado {upgrade.upgradeName}, nuevo nivel: {upgradeLevels[upgrade]}, valor: {newValue}");
         return true;
     }
 

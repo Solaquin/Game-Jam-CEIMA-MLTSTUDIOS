@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17758f4a802d974c8d28c4cb82b216f, type: 3}
   m_Name: Vacuum Motor
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  upgradeName: 
+  upgradeName: Vacuum Motor
   sprite: {fileID: 0}
   description: 
-  maxLevel: 0
-  costPerLevel: 
-  baseValue: 0
-  incrementPerLevel: 0
+  maxLevel: 5
+  costPerLevel: 96000000fa0000005e010000f4010000e8030000
+  baseValue: 5
+  incrementPerLevel: 2
