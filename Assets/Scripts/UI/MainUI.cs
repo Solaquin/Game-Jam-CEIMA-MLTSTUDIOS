@@ -6,9 +6,11 @@ public class MainUI : MonoBehaviour
 {
     [Header("OxygenBar")]
     [SerializeField] private OxygenSystem oxygenSystem;
+    [SerializeField] private PlayerStats playerStats;
 
     [SerializeField] private Image barFill;                
-    [SerializeField] private TextMeshProUGUI percentText; 
+    [SerializeField] private TextMeshProUGUI percentText;
+    [SerializeField] private TextMeshProUGUI moneyText;
 
     [Header("Visual")]
     [SerializeField, Range(1f, 20f)] private float smooth = 8f;
@@ -47,6 +49,16 @@ public class MainUI : MonoBehaviour
         else
         {
             barFill.color = Color.Lerp(fallbackLow, fallbackHigh, t);
+        }
+
+        UpdateMoneyDisplay();
+    }
+
+    public void UpdateMoneyDisplay()
+    {
+        if (playerStats != null && moneyText != null)
+        {
+            moneyText.text = $"${playerStats.money}";
         }
     }
 }

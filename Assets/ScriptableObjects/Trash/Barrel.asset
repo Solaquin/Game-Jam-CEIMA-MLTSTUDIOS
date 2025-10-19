@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5e31a3788508e4d9cb8ef444a731cf, type: 3}
   m_Name: Barrel
   m_EditorClassIdentifier: Assembly-CSharp::TrashData
-  itemName: Barrel
+  itemName: Barril
   sprite: {fileID: -1199327341, guid: 5457b061d559b354194cdcce5f1cba0e, type: 3}
   description: Barril
   price: 2

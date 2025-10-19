@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5e31a3788508e4d9cb8ef444a731cf, type: 3}
   m_Name: Bottle
   m_EditorClassIdentifier: Assembly-CSharp::TrashData
-  itemName: Bottle
+  itemName: Botella
   sprite: {fileID: -1495883294, guid: d22fa2d84be6c2847a73d0aaa16dd7fc, type: 3}
   description: Botella
   price: 10
