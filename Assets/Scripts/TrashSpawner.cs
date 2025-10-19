@@ -62,14 +62,14 @@ public class TrashSpawner : MonoBehaviour
 
                 GameObject prefab = trashPrefabs[Random.Range(0, trashPrefabs.Count)];
                 GameObject trash = Instantiate(prefab, pos, Quaternion.identity);
-
+                trash.layer = LayerMask.NameToLayer("collectibleLayer");
                 // Añadir flotación si está activada
-                if (enableFloat)
-                {
-                    TrashFloat floatScript = trash.AddComponent<TrashFloat>();
-                    floatScript.floatSpeed = floatSpeed;
-                    floatScript.floatAmplitude = floatAmplitude;
-                }
+                //if (enableFloat)
+                //{
+                //    TrashFloat floatScript = trash.AddComponent<TrashFloat>();
+                //    floatScript.floatSpeed = floatSpeed;
+                //    floatScript.floatAmplitude = floatAmplitude;
+                //}
 
                 var col = trash.GetComponent<Collider>();
                 if (col != null)

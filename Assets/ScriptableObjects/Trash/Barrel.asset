@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f5e31a3788508e4d9cb8ef444a731cf, type: 3}
-  m_Name: Plastic Bags
+  m_Name: Barrel
   m_EditorClassIdentifier: Assembly-CSharp::TrashData
-  itemName: Bolsas De Plastico
-  sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  description: Bolsa basura de plastico
-  price: 5
-  weight: 5
+  itemName: Barrel
+  sprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  description: Barril
+  price: 2
+  weight: 2
   rarity: 1

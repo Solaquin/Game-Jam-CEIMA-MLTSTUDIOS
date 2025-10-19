@@ -64,6 +64,7 @@ public class VacuumSystem : MonoBehaviour
 
         foreach (var hit in hits)
         {
+            Debug.Log($"Detectado: {hit.name} en layer {LayerMask.LayerToName(hit.gameObject.layer)}");
             if (IsInCone(hit.transform.position))
             {
                 Rigidbody rb = hit.attachedRigidbody;
