@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a23d678bceec34a9e3c9f91fb961d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FishSpawner
+  fishPrefabs:
+  - {fileID: 4497856058540483652, guid: d551a5e3c159d704186a3de6203fb602, type: 3}
+  - {fileID: 4497856058540483652, guid: 908eb937b9a4fdc4b8b9e7590eeed0fc, type: 3}
+  - {fileID: 4497856058540483652, guid: 7176e979fc688424895e7f527ef4629c, type: 3}
+  - {fileID: 4497856058540483652, guid: 984651ab536e32b4d898583a6c86ef59, type: 3}
   fishPrefab: {fileID: 4497856058540483652, guid: d551a5e3c159d704186a3de6203fb602, type: 3}
   player: {fileID: 0}
   spawnArea: {fileID: 5834876250491068783}

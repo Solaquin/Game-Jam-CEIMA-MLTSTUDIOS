@@ -16,7 +16,10 @@ public class SurfaceZone : MonoBehaviour
     void Start()
     {
         if (pressEText != null)
+        {
             pressEText.gameObject.SetActive(false);
+        }
+            
     }
 
     void Update()
@@ -24,9 +27,14 @@ public class SurfaceZone : MonoBehaviour
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.E))
         {
             if (isAtBase)
+            {
                 ReturnToWater();
+            }
+
             else
+            {
                 GoToBase();
+            }
         }
     }
 
@@ -47,7 +55,10 @@ public class SurfaceZone : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             if (pressEText != null)
+            {
                 pressEText.gameObject.SetActive(false);
+            }
+                
             isPlayerNearby = false;
         }
     }
@@ -60,8 +71,20 @@ public class SurfaceZone : MonoBehaviour
 
             OxygenSystem oxygen = diver.GetComponent<OxygenSystem>();
             if (oxygen != null)
+            {
                 oxygen.RefillOxygen();
                 oxygen.SetSafeZone(true);
+            }
+
+            var rescuedAnimalField = typeof(DiverMovement).GetField("currentAnimal",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            RescueAnimal rescuedAnimal = (RescueAnimal)rescuedAnimalField.GetValue(diver);
+
+            if (rescuedAnimal != null)
+            {
+                rescuedAnimal.ReachBase();
+                rescuedAnimalField.SetValue(diver, null);
+            }
 
             if (pressEText != null)
                 pressEText.text = "Press E";
@@ -70,6 +93,7 @@ public class SurfaceZone : MonoBehaviour
         }
     }
 
+
     private void ReturnToWater()
     {
         if (diver != null)
@@ -77,9 +101,15 @@ public class SurfaceZone : MonoBehaviour
             diver.TeleportToWater(waterSpawnPoint.position);
             OxygenSystem oxygen = diver.GetComponent<OxygenSystem>();
             if (oxygen != null)
+            {
                 oxygen.SetSafeZone(false);
+            }
+                
             if (pressEText != null)
+            {
                 pressEText.text = "Press E";
+            }
+                
             
             isAtBase = false;
         }

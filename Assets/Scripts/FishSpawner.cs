@@ -3,9 +3,12 @@ using System.Collections.Generic;
 
 public class FishSpawner : MonoBehaviour
 {
-    public FishMovement fishPrefab;
-    public Transform player;
+    [Header("Prefabs por especie (cada uno con su Animator listo)")]
+    [SerializeField] private List<FishMovement> fishPrefabs; // ← usa estos
+    [Tooltip("Opcional: si la lista está vacía, usa este prefab genérico")]
+    public FishMovement fishPrefab; // fallback
 
+    public Transform player;
     public BoxCollider spawnArea;
     public float minSeparation = 0.5f;
     public int maxAttemptsPerFish = 20;
@@ -21,13 +24,19 @@ public class FishSpawner : MonoBehaviour
 
     public LayerMask spawnLayerMask = ~0;
 
-    // Compartido por todos los spawners para ignorar colisiones entre todos los peces
+    // para ignorar colisiones entre peces
     private static readonly List<Collider> fishColliders = new List<Collider>();
     private Collider[] playerColliders;
 
     void Start()
     {
-        if (!fishPrefab || !spawnArea) return;
+        // Validaciones
+        if ((fishPrefabs == null || fishPrefabs.Count == 0) && !fishPrefab)
+        {
+            Debug.LogWarning("FishSpawner: no hay prefabs asignados.");
+            return;
+        }
+        if (!spawnArea) { Debug.LogWarning("FishSpawner: asigna un BoxCollider como spawnArea."); return; }
 
         playerColliders = (player != null) ? player.GetComponentsInChildren<Collider>(true) : null;
 
@@ -47,24 +56,35 @@ public class FishSpawner : MonoBehaviour
                     zLayer
                 );
 
+                // evita solapes fuertes al nacer
                 if (Physics.OverlapSphere(pos, minSeparation, spawnLayerMask, QueryTriggerInteraction.Ignore).Length > 0)
                     continue;
 
-                var fish = Instantiate(fishPrefab, pos, Quaternion.identity);
+                // ======= ELECCIÓN DEL PREFAB AL AZAR (OPCIÓN A) =======
+                FishMovement prefabToUse = (fishPrefabs != null && fishPrefabs.Count > 0)
+                    ? fishPrefabs[Random.Range(0, fishPrefabs.Count)]
+                    : fishPrefab;
+
+                var fish = Instantiate(prefabToUse, pos, Quaternion.identity);
+
+                // Config común para cualquier especie
                 fish.SetPlayer(player);
                 fish.speed = Random.Range(speedRange.x, speedRange.y);
                 fish.speedAfter = Random.Range(speedAfterRange.x, speedAfterRange.y);
                 fish.SetDepthAndBehavior(zLayer, respondToPlayerAtThisZ);
 
+                // Si tus peces usan límites en Y dentro del área de spawn:
+                // (activa limitY en el prefab o llama aquí si tu FishMovement tiene SetYBounds)
+                // fish.SetYBounds(b.min.y, b.max.y, true);
+
+                // Ignorar colisiones (player y entre peces)
                 var fc = fish.GetComponent<Collider>();
                 if (fc != null)
                 {
-                    // Ignorar player
                     if (playerColliders != null)
                         foreach (var pc in playerColliders)
                             if (pc) Physics.IgnoreCollision(fc, pc, true);
 
-                    // Ignorar peces anteriores (bidireccional con una sola llamada)
                     foreach (var other in fishColliders)
                         if (other) Physics.IgnoreCollision(fc, other, true);
 
