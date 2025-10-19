@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: Lata
   sprite: {fileID: 1569632646, guid: 8dd423df511011e4e9793166c1e7dd93, type: 3}
   description: Lata
-  price: 5
+  price: 15
   weight: 5
   rarity: 1

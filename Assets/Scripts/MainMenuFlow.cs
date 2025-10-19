@@ -1,107 +1,137 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;           // opcional, solo si usas TextMeshPro
-using UnityEngine.UI; // opcional, solo si usas Button/Slider
+using UnityEngine.UI;   // opcional si usas botones
+using TMPro;            // opcional si usas TMP
 
 public class MainMenuFlow : MonoBehaviour
 {
     [Header("Canvases")]
-    public GameObject menuCanvas;    // Canvas del menú principal (con botón Jugar)
-    public GameObject contextCanvas; // Canvas del contexto (déjalo desactivado al inicio)
+    public GameObject menuCanvas;      // activo al inicio
+    public GameObject contextCanvas;   // desactivado al inicio
+    public GameObject creditsCanvas;   // desactivado al inicio
 
     [Header("Escena del juego")]
-    public string gameSceneName = "Game"; // Nombre exacto de la escena de juego (en Build Settings)
+    public string gameSceneName = "Game";
 
     [Header("Contexto")]
-    public float contextDuration = 3f;    // Segundos que se muestra el contexto antes de cargar la escena
-    public bool allowSkipWithAnyKey = false; // Permitir saltar el contexto con cualquier tecla
-    public Button skipButton;             // Opcional: botón "Continuar"/"Saltar" en el contexto
+    public float contextDuration = 3f;         // segundos que se muestra el contexto
+    public bool allowSkipWithAnyKey = false;   // permitir saltar con cualquier tecla
+    public Button contextSkipButton;           // opcional: botón "Continuar/Saltar" en contexto
 
     [Header("Fade (opcional)")]
-    public CanvasGroup fade;       // Un CanvasGroup negro a pantalla completa (opcional)
+    public CanvasGroup fade;        // Panel negro con CanvasGroup a full screen (opcional)
     public float fadeDuration = 0.25f;
 
     private bool _skipping = false;
+    private Coroutine _running;
 
     void Start()
     {
-        // Estado inicial
-        if (menuCanvas) menuCanvas.SetActive(true);
-        if (contextCanvas) contextCanvas.SetActive(false);
+        // Estado inicial de los canvas
+        SetActiveSafe(menuCanvas, true);
+        SetActiveSafe(contextCanvas, false);
+        SetActiveSafe(creditsCanvas, false);
 
         // Fade desde negro (opcional)
         if (fade) { fade.alpha = 1f; StartCoroutine(FadeTo(0f)); }
 
-        // Botón de saltar (opcional)
-        if (skipButton != null)
+        // Botón saltar del contexto (opcional)
+        if (contextSkipButton)
         {
-            skipButton.onClick.RemoveAllListeners();
-            skipButton.onClick.AddListener(SkipContext);
+            contextSkipButton.onClick.RemoveAllListeners();
+            contextSkipButton.onClick.AddListener(SkipContext);
         }
     }
 
     void Update()
     {
-        // Permitir saltar con cualquier tecla (opcional)
-        if (allowSkipWithAnyKey && _skipping == false && contextCanvas != null && contextCanvas.activeSelf)
+        // Saltar contexto con cualquier tecla (opcional)
+        if (allowSkipWithAnyKey && contextCanvas && contextCanvas.activeSelf && !_skipping)
         {
             if (Input.anyKeyDown) SkipContext();
         }
     }
 
-    // Llama este método desde el botón "Jugar" del menú
+    // ======= Botones del Menú =======
+
+    // Botón "Jugar"
     public void OnPlayClicked()
     {
-        if (menuCanvas) menuCanvas.SetActive(false);
-        if (contextCanvas) contextCanvas.SetActive(true);
-
-        StopAllCoroutines();
-        StartCoroutine(ContextThenLoad());
+        SwitchTo(contextCanvas);
+        _skipping = false;
+        StopRunning();
+        _running = StartCoroutine(ContextThenLoad());
     }
 
-    // Botón "Continuar/Saltar" del contexto (opcional)
+    // Botón "Créditos"
+    public void OnCreditsClicked()
+    {
+        SwitchTo(creditsCanvas);
+    }
+
+    // Botón "Volver" (desde Créditos o Contexto)
+    public void OnBackToMenu()
+    {
+        _skipping = true; // por si venimos del contexto
+        StopRunning();
+        SwitchTo(menuCanvas);
+    }
+
+    // ======= Botones dentro del Contexto (opcional) =======
+
+    // Botón "Continuar/Saltar" en Contexto
     public void SkipContext()
     {
         if (_skipping) return;
         _skipping = true;
-        StopAllCoroutines();
-        StartCoroutine(LoadGame());
+        StopRunning();
+        _running = StartCoroutine(LoadGame());
     }
 
-    // ------ Flujo: mostrar contexto -> esperar -> cargar juego ------
+    // ======= Flujo interno =======
+
     private IEnumerator ContextThenLoad()
     {
-        _skipping = false;
-
-        // (Si quieres un fade-in del contexto, descomenta)
-        // yield return FadeTo(0f);
-
         float t = 0f;
         while (t < contextDuration && !_skipping)
         {
             t += Time.unscaledDeltaTime;
             yield return null;
         }
-
         if (!_skipping)
             yield return LoadGame();
     }
 
     private IEnumerator LoadGame()
     {
-        // Fade out (opcional)
-        yield return FadeTo(1f);
-
+        yield return FadeTo(1f); // fade out
         var op = SceneManager.LoadSceneAsync(gameSceneName);
         while (!op.isDone) yield return null;
     }
 
-    // ------ Helper de Fade (opcional) ------
+    private void SwitchTo(GameObject target)
+    {
+        SetActiveSafe(menuCanvas, target == menuCanvas);
+        SetActiveSafe(contextCanvas, target == contextCanvas);
+        SetActiveSafe(creditsCanvas, target == creditsCanvas);
+    }
+
+    private void SetActiveSafe(GameObject go, bool active)
+    {
+        if (go && go.activeSelf != active) go.SetActive(active);
+    }
+
+    private void StopRunning()
+    {
+        if (_running != null) StopCoroutine(_running);
+        _running = null;
+    }
+
+    // ======= Fade helper (opcional) =======
     private IEnumerator FadeTo(float target)
     {
-        if (fade == null || fadeDuration <= 0f)
-            yield break;
+        if (!fade || fadeDuration <= 0f) yield break;
 
         float start = fade.alpha;
         float time = 0f;

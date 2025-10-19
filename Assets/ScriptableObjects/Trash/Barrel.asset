@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: Barril
   sprite: {fileID: -1199327341, guid: 5457b061d559b354194cdcce5f1cba0e, type: 3}
   description: Barril
-  price: 2
+  price: 15
   weight: 2
   rarity: 1

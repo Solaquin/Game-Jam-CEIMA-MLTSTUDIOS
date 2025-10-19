@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: Perla
   sprite: {fileID: -508932105, guid: b0bceab61eb27314ba946b9333792c13, type: 3}
   description: 
-  price: 90
+  price: 180
   weight: 18
   rarity: 7
