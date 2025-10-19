@@ -25,6 +25,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<UIPanelEntry> panelsList;
     public SurfaceZone surfaceZone;
 
+
+
     private Dictionary<UIPanelType, GameObject> uiPanels;
 
     void Awake()
@@ -134,6 +136,7 @@ public class UIManager : MonoBehaviour
         uiPanels[type].SetActive(false);
     }
 
+    
 
 
 }
