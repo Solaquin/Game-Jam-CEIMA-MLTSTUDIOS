@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.Multiplayer.Center.Common;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 
@@ -9,9 +10,15 @@ public class ShopUI : MonoBehaviour
     [Header("References")]
     [SerializeField] private ShopSystem shopSystem;
     [SerializeField] private BagSystem playerBag;
+
+    [Header("Buy Elements")]
     [SerializeField] private GameObject buySlotParent;
-    [SerializeField] private GameObject sellSlotParent;
+    [SerializeField] private GameObject buyContentPanel;
     [SerializeField] private GameObject buySlotPrefab;
+
+    [Header("Sell Elements")]
+    [SerializeField] private GameObject sellSlotParent;
+    [SerializeField] private GameObject sellContentPanel;
     [SerializeField] private GameObject sellSlotPrefab;
 
     private readonly List<ShopISlotUI> activeBuySlots = new();
@@ -23,10 +30,10 @@ public class ShopUI : MonoBehaviour
     private void Start()
     {
         shopSystem.InitializeUpgrades();
-        RefreshShopUI();
     }
     private void OnEnable()
     {
+        ShowSellFrame();
         ShowBuyFrame();
         RefreshShopUI();
     }
@@ -52,6 +59,7 @@ public class ShopUI : MonoBehaviour
 
         sellSlotParent.SetActive(isSell);
         buySlotParent.SetActive(!isSell);
+        RefreshShopUI();
     }
     public void RefreshShopUI()
     {
@@ -59,9 +67,10 @@ public class ShopUI : MonoBehaviour
 
         if (currentMode == ShopMode.Buy)
         {
+
             foreach (var upgrade in shopSystem.Upgrades)
             {
-                var slotObj = Instantiate(buySlotPrefab, buySlotParent.transform);
+                var slotObj = Instantiate(buySlotPrefab, buyContentPanel.transform);
                 var slot = slotObj.GetComponent<ShopISlotUI>();
 
                 slot.SetBuyItem(upgrade, shopSystem.GetUpgradeLevel(upgrade), OnBuyUpgrade);
@@ -72,7 +81,8 @@ public class ShopUI : MonoBehaviour
         {
             foreach (var item in playerBag.items)
             {
-                var slotObj = Instantiate(sellSlotPrefab, sellSlotParent.transform);
+
+                var slotObj = Instantiate(sellSlotPrefab, sellContentPanel.transform);
                 var slot = slotObj.GetComponent<ShopISlotUI>();
 
                 slot.SetSellItem(item, OnSellItem);
