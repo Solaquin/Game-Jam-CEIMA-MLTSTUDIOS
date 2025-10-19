@@ -9,9 +9,19 @@ public class VacuumSystem : MonoBehaviour
     [SerializeField] private float suctionAngle = 45f;
     [SerializeField] private Transform suctionPoint;
     [SerializeField] private LayerMask collectibleLayer;
+
+    [Header("Audio Settings")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip suctionLoopSound; 
+    [SerializeField] private AudioClip collectSound;    
+    [SerializeField] private float suctionVolume = 0.7f;
+    [SerializeField] private float collectVolume = 1f;
+
+
     private BagSystem bagSystem;
     private bool isSucking = false;
     private Camera mainCamera;
+    private bool wasSucking = false;
     public float CurrentSuctionRadius { get; private set; }
     public float CurrentSuctionAngle { get; private set; }
     void Start()
@@ -21,6 +31,15 @@ public class VacuumSystem : MonoBehaviour
 
         if (suctionPoint == null)
             suctionPoint = transform;
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.loop = true;
+        audioSource.volume = suctionVolume;
     }
 
     void Update()
@@ -34,6 +53,9 @@ public class VacuumSystem : MonoBehaviour
             isSucking = true;
         if (Input.GetMouseButtonUp(0))
             isSucking = false;
+
+        HandleSuctionSound();
+
     }
 
     void FixedUpdate()
@@ -42,7 +64,30 @@ public class VacuumSystem : MonoBehaviour
             SuctionLogic();
         //Debug.Log($"Radio actual usado en física: {suctionRadius}");
     }
+    void HandleSuctionSound()
+    {
+        if (isSucking && !wasSucking)
+        {
+            // Empezar a aspirar
+            if (suctionLoopSound != null && audioSource != null)
+            {
+                audioSource.clip = suctionLoopSound;
+                audioSource.Play();
+                Debug.Log("Sonido de aspiración iniciado");
+            }
+        }
+        else if (!isSucking && wasSucking)
+        {
+            // Dejar de aspirar
+            if (audioSource != null && audioSource.isPlaying)
+            {
+                audioSource.Stop();
+                Debug.Log("Sonido de aspiración detenido");
+            }
+        }
 
+        wasSucking = isSucking;
+    }
     void RotateTowardsMouse()
     {
         if (mainCamera == null) return;
@@ -77,6 +122,11 @@ public class VacuumSystem : MonoBehaviour
                 if (distance < absorbDistance)
                 {
                     bagSystem.AddItem(hit.gameObject.GetComponent<CollectibleItem>().itemData, 1);
+                    if (collectSound != null && audioSource != null)
+                    {
+                        audioSource.PlayOneShot(collectSound, collectVolume);
+                        Debug.Log("Sonido de recolección reproducido");
+                    }
                     Debug.Log($"Absorbido: {hit.gameObject.name}");
                     Destroy(hit.gameObject);
                 }
