@@ -114,8 +114,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 907149137
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -141,9 +141,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiverMovement
   swimSpeed: 7
+  walkSpeed: 2
   acceleration: 5
   deceleration: 0.5
-  targetType: 0
+  surfaceY: 32.5
+  oxygenSystem: {fileID: 0}
 --- !u!114 &1436860414696648504
 MonoBehaviour:
   m_ObjectHideFlags: 0
