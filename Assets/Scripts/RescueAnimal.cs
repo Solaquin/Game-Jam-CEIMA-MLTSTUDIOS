@@ -74,8 +74,8 @@ public class RescueAnimal : MonoBehaviour
         if (timer > 0)
         {
             Debug.Log($"{data.animalName} llegó a salvo. +{data.rewardMoney} monedas!");
-            GiveReward();
             var diver = FindFirstObjectByType<DiverMovement>();
+            GiveReward(diver);
             RescueInteraction rescueInteraction = diver.GetComponent<RescueInteraction>();
             if (diver != null)
             {
@@ -91,9 +91,14 @@ public class RescueAnimal : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void GiveReward()
+    private void GiveReward(DiverMovement diver)
     {
-        // Dar dinero
+        PlayerStats playerStats = diver.GetComponent<PlayerStats>();
+        if (playerStats != null)
+        {
+            playerStats.money += data.rewardMoney;
+        }
+
     }
 
     public void RescueFailed()
