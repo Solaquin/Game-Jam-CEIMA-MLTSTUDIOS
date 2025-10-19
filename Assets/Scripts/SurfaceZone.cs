@@ -57,6 +57,12 @@ public class SurfaceZone : MonoBehaviour
         if (diver != null)
         {
             diver.TeleportToBase(baseSpawnPoint);
+
+            OxygenSystem oxygen = diver.GetComponent<OxygenSystem>();
+            if (oxygen != null)
+                oxygen.RefillOxygen();
+                oxygen.SetSafeZone(true);
+
             if (pressEText != null)
                 pressEText.text = "Press E";
 
@@ -69,9 +75,12 @@ public class SurfaceZone : MonoBehaviour
         if (diver != null)
         {
             diver.TeleportToWater(waterSpawnPoint);
+            OxygenSystem oxygen = diver.GetComponent<OxygenSystem>();
+            if (oxygen != null)
+                oxygen.SetSafeZone(false);
             if (pressEText != null)
                 pressEText.text = "Press E";
-
+            
             isAtBase = false;
         }
     }
