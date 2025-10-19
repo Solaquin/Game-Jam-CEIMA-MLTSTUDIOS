@@ -107,6 +107,9 @@ public class RescueAnimal : MonoBehaviour
         hasActiveRescue = false;
         isRescued = false;
         timerActive = false;
+        meshRenderer.enabled = true;
+        animalCollider.enabled = true;
+        timer = data.rescueTimeLimit;
         RescueUIManager.Instance.HideTimer();
 
         var diver = FindFirstObjectByType<DiverMovement>();
@@ -115,8 +118,6 @@ public class RescueAnimal : MonoBehaviour
         {
             rescueInteraction.SetCurrentAnimal(null);
         }
-
-        // Opcional: destruir el objeto si querés que desaparezca tras fallar
-        Destroy(gameObject);
+        
     }
 }
