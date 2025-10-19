@@ -12,7 +12,8 @@ public class VacuumSystem : MonoBehaviour
     private BagSystem bagSystem;
     private bool isSucking = false;
     private Camera mainCamera;
-
+    public float CurrentSuctionRadius { get; private set; }
+    public float CurrentSuctionAngle { get; private set; }
     void Start()
     {
         bagSystem = GetComponent<BagSystem>();
@@ -24,6 +25,9 @@ public class VacuumSystem : MonoBehaviour
 
     void Update()
     {
+        //Debug.Log($"Vacuum activo: {name}");
+
+        //Debug.Log(GetSuctionRadius());
         RotateTowardsMouse();
 
         if (Input.GetMouseButtonDown(0))
@@ -36,6 +40,7 @@ public class VacuumSystem : MonoBehaviour
     {
         if (isSucking)
             SuctionLogic();
+        //Debug.Log($"Radio actual usado en física: {suctionRadius}");
     }
 
     void RotateTowardsMouse()
@@ -110,4 +115,17 @@ public class VacuumSystem : MonoBehaviour
         Gizmos.DrawLine(suctionPoint.position, suctionPoint.position + rightBound);
         Gizmos.DrawLine(suctionPoint.position + leftBound, suctionPoint.position + rightBound);
     }
+    public void SetSuctionRadius(float newRadius)
+    {
+        suctionRadius = newRadius;
+        Debug.Log($"Radio de succión actualizado a: {suctionRadius}");
+    }
+    public void SetSuctionAngle(float newAngle)
+    {
+        suctionAngle = newAngle;
+        Debug.Log($"Ángulo de succión actualizado a: {suctionAngle}");
+    }
+
+    public float GetSuctionRadius() => suctionRadius;
+    public float GetSuctionAngle() => suctionAngle;
 }

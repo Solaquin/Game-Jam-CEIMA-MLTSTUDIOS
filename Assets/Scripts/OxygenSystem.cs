@@ -55,4 +55,15 @@ public class OxygenSystem : MonoBehaviour
     {
         return currentOxygen / maxOxygen;
     }
+
+    public void SetMaxOxygen(float newAmount)
+    {
+        maxOxygen = newAmount;
+        Debug.Log($"Nuevo oxígeno máximo: {maxOxygen}");
+    }
+
+    public float GetMaxOxygen()
+    {
+        return maxOxygen;
+    }
 }

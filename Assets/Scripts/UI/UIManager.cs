@@ -27,4 +27,10 @@ public class UIManager : MonoBehaviour
             uiPanels[1].enabled = !uiPanels[1].enabled;
         }
     }
+
+    public void ToogleByIndex(int index)
+    {
+        if (index < 0 || index >= uiPanels.Count || uiPanels[index] == null) return;
+        uiPanels[index].enabled = !uiPanels[index].enabled;
+    }
 }
