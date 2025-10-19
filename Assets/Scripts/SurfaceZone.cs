@@ -13,14 +13,17 @@ public class SurfaceZone : MonoBehaviour
     private bool isPlayerNearby = false;
     private bool isAtBase = false;
     public List<TrashSpawner> trashSpawner = new List<TrashSpawner>();
-
+    [SerializeField] private bool spawnAtBaseOnStart = true;
     void Start()
     {
         if (pressEText != null)
         {
             pressEText.gameObject.SetActive(false);
         }
-            
+        if (spawnAtBaseOnStart)
+        {
+            GoToBase();
+        }
     }
 
     void Update()
