@@ -5,6 +5,7 @@ public class UpgradeData : ScriptableObject
 {
 
     [Header("General Data")]
+    public int ID;
     public string upgradeName;
     public Sprite sprite;
 
