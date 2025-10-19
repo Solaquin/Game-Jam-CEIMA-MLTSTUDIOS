@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class RescueInteraction : MonoBehaviour
 {
@@ -8,6 +9,25 @@ public class RescueInteraction : MonoBehaviour
 
     private RescueAnimal closerAnimal;
     private RescueAnimal currentAnimal;
+
+    [SerializeField] private AudioSource rescueAudioSource;
+    [SerializeField] private AudioClip rescueSound;
+    [SerializeField] private float rescueVolume = 1f;
+
+
+    private void Start()
+    {
+        if (rescueAudioSource == null)
+            rescueAudioSource = GetComponent<AudioSource>();
+
+        if (rescueAudioSource == null)
+            rescueAudioSource = gameObject.AddComponent<AudioSource>();
+        rescueAudioSource.loop = false;
+        rescueAudioSource.playOnAwake = false;
+        rescueAudioSource.volume = rescueVolume;
+    }
+
+
 
     void Update()
     {
@@ -21,6 +41,7 @@ public class RescueInteraction : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
+                PlaySound(rescueSound);
                 closerAnimal.Rescue(playerDiverMovementReference);
                 
                 RescueUIManager.Instance.HideRescuePrompt();
@@ -56,5 +77,12 @@ public class RescueInteraction : MonoBehaviour
     {
         currentAnimal = animal;
     }
-
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null && rescueAudioSource != null)
+        {
+            rescueAudioSource.PlayOneShot(clip);
+            //Debug.Log($"ShopSystem - Sonido reproducido: {clip.name}");
+        }
+    }
 }

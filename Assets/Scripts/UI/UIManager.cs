@@ -28,6 +28,8 @@ public class UIManager : MonoBehaviour
     public SurfaceZone surfaceZone;
     public GameObject diver;
 
+
+
     private Dictionary<UIPanelType, GameObject> uiPanels;
     private bool isPaused;
 
@@ -62,14 +64,14 @@ public class UIManager : MonoBehaviour
             TogglePausePanel();
         }
 
-        // Si el juego est· pausado, no dejar abrir ninguna otra UI
+        // Si el juego est√° pausado, no dejar abrir ninguna otra UI
         if (isPaused)
             return;
 
         bool noOxygenActive = uiPanels[UIPanelType.NoOxygen].activeSelf;
         bool isAtBase = surfaceZone.IsAtBase();
 
-        // Bloquear todo si el jugador est· sin oxÌgeno
+        // Bloquear todo si el jugador est√° sin ox√≠geno
         if (noOxygenActive)
         {
             uiPanels[UIPanelType.Bag].SetActive(false);
@@ -99,11 +101,11 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            // En inmersiÛn: solo inventario
+            // En inmersi√≥n: solo inventario
             if (Input.GetKeyDown(KeyCode.I))
                 Toggle(UIPanelType.Bag);
 
-            // Cierra tienda si est· abierta fuera de la base
+            // Cierra tienda si est√° abierta fuera de la base
             if (uiPanels[UIPanelType.Shop].activeSelf)
                 Toggle(UIPanelType.Shop);
         }
@@ -138,47 +140,7 @@ public class UIManager : MonoBehaviour
         uiPanels[type].SetActive(false);
     }
 
-    public void ToggleInventoryPanel()
-    {
-        if (uiPanels[UIPanelType.Shop].activeSelf)
-            Toggle(UIPanelType.Shop);
-
-        Toggle(UIPanelType.Bag);
-    }
-    public void ToggleShopPanel()
-    {
-        if (uiPanels[UIPanelType.Bag].activeSelf)
-            Toggle(UIPanelType.Bag);
-
-        Toggle(UIPanelType.Shop);
-    }
-    public void TogglePausePanel()
-    {
-        Toggle(UIPanelType.Pause);  // Abre o cierra el panel de pausa
-
-        isPaused = !isPaused;
-        VacuumSystem vacuumSystem = diver.GetComponent<VacuumSystem>();
-
-        if (isPaused)
-        {
-            // Detener succiÛn antes de desactivar
-            if (vacuumSystem != null)
-            {
-                vacuumSystem.SetIsSucking(false);
-                vacuumSystem.HandleSuctionSound();
-            }
-            Time.timeScale = 0f;
-            vacuumSystem.enabled = false;
-            surfaceZone.enabled = false;
-        }
-        else
-        {
-            Time.timeScale = 1f;
-            vacuumSystem.enabled = true;
-            surfaceZone.enabled = true;
-        }
-    }
-
+    
 
 
 }
