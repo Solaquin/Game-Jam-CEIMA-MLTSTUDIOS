@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4100543701414896474}
   - component: {fileID: -3757148401026563578}
   m_Layer: 6
-  m_Name: Diamante
+  m_Name: Pearl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -988923958, guid: d922419eea2951e4eb7963ebc360920d, type: 3}
+  m_Sprite: {fileID: -516683494, guid: ae2e0e0610bed4d4fa6b0d68699e6782, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c75122ecefc7d4dbc5b52e37393ca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollectibleItem
-  itemData: {fileID: 11400000, guid: 8f92cd8c232ae8848b93e0b8ed444665, type: 2}
+  itemData: {fileID: 11400000, guid: 716338e130967f64999604f03bfb93f5, type: 2}
   quantity: 1
 --- !u!54 &-3757148401026563578
 Rigidbody:
