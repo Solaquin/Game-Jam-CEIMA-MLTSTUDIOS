@@ -28,6 +28,8 @@ public class UIManager : MonoBehaviour
     public SurfaceZone surfaceZone;
     public GameObject diver;
 
+
+
     private Dictionary<UIPanelType, GameObject> uiPanels;
     private bool isPaused;
 
@@ -62,14 +64,14 @@ public class UIManager : MonoBehaviour
             TogglePausePanel();
         }
 
-        // Si el juego está pausado, no dejar abrir ninguna otra UI
+        // Si el juego estï¿½ pausado, no dejar abrir ninguna otra UI
         if (isPaused)
             return;
 
         bool noOxygenActive = uiPanels[UIPanelType.NoOxygen].activeSelf;
         bool isAtBase = surfaceZone.IsAtBase();
 
-        // Bloquear todo si el jugador está sin oxígeno
+        // Bloquear todo si el jugador estï¿½ sin oxï¿½geno
         if (noOxygenActive)
         {
             uiPanels[UIPanelType.Bag].SetActive(false);
@@ -99,11 +101,11 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            // En inmersión: solo inventario
+            // En inmersiï¿½n: solo inventario
             if (Input.GetKeyDown(KeyCode.I))
                 Toggle(UIPanelType.Bag);
 
-            // Cierra tienda si está abierta fuera de la base
+            // Cierra tienda si estï¿½ abierta fuera de la base
             if (uiPanels[UIPanelType.Shop].activeSelf)
                 Toggle(UIPanelType.Shop);
         }
@@ -161,7 +163,7 @@ public class UIManager : MonoBehaviour
 
         if (isPaused)
         {
-            // Detener succión antes de desactivar
+            // Detener succiï¿½n antes de desactivar
             if (vacuumSystem != null)
             {
                 vacuumSystem.SetIsSucking(false);
