@@ -69,7 +69,7 @@ MonoBehaviour:
   trashPrefabs:
   - {fileID: 1429266309596426139, guid: 9f1e578b98c31db4f8a9988a3f1b04b1, type: 3}
   - {fileID: 1429266309596426139, guid: 6f0326f83e08024429ba9223bb494396, type: 3}
-  - {fileID: 1710442348974476861, guid: 630f12a6462d0864a88d1bf763509555, type: 3}
+  - {fileID: 1710442348974476861, guid: a5360f7e9434de646bcdaaef54d57320, type: 3}
   - {fileID: 5290907721974111758, guid: be7c8888ff50ca84b836317252a570c8, type: 3}
   spawnArea: {fileID: 4923206987234297212}
   minSeparation: 0.5
