@@ -84,8 +84,7 @@ public class RescueAnimal : MonoBehaviour
 
     private void GiveReward()
     {
-        // Ejemplo de recompensa
-        // PlayerStats.Instance.AddMoney(data.rewardMoney);
+        // Dar dinero
     }
 
     private void RescueFailed()
