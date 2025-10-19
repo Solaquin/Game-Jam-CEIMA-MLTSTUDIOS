@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5e31a3788508e4d9cb8ef444a731cf, type: 3}
   m_Name: Can
   m_EditorClassIdentifier: Assembly-CSharp::TrashData
-  itemName: Can
-  sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  itemName: Lata
+  sprite: {fileID: 1569632646, guid: 8dd423df511011e4e9793166c1e7dd93, type: 3}
   description: Lata
   price: 5
   weight: 5
