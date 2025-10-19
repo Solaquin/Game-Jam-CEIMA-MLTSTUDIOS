@@ -106,4 +106,13 @@ public class DiverMovement : MonoBehaviour
     {
         currentAnimal = animal;
     }
+    public void SetSwimSpeed(float newSpeed)
+    {
+        swimSpeed = newSpeed;
+        Debug.Log($"Nueva velocidad de nado: {swimSpeed}");
+    }
+    public float GetSwimSpeed()
+    {
+        return swimSpeed;
+    }
 }
