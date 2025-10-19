@@ -87,4 +87,11 @@ public class BagSystem : MonoBehaviour
         bagCapacity = newCapacity;
         OnInventoryChanged?.Invoke();
     }
+
+    public void ClearBag()
+    {
+        items.Clear();
+        currentWeight = 0f;
+        OnInventoryChanged?.Invoke();
+    }
 }

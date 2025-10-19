@@ -7,14 +7,23 @@ public class OxygenSystem : MonoBehaviour
     [SerializeField] private float oxygenDrainMoving = 2f;
     [SerializeField] private float oxygenDrainIdle = 1f;
 
+    [Header("Other References")]
+    [SerializeField] GameObject noOxygenCanvas;
+    [SerializeField] private SurfaceZone surfaceZone;
+
     private float currentOxygen;
     private bool isInSafeZone = false;
     private Rigidbody rb;
+    private DiverMovement diverMovement;
+    private BagSystem bagSystem;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        diverMovement = GetComponent<DiverMovement>();
+        bagSystem = GetComponent<BagSystem>();
         currentOxygen = maxOxygen;
+        noOxygenCanvas.SetActive(false);
     }
 
     void Update()
@@ -37,8 +46,21 @@ public class OxygenSystem : MonoBehaviour
 
         if (currentOxygen <= 0)
         {
-            Debug.Log("Sin oxígeno");
+            DeadLogic();
         }
+    }
+
+    public void DeadLogic()
+    {
+        diverMovement.EnableMovement(false);
+        bagSystem.ClearBag();
+        noOxygenCanvas.SetActive(true);
+    }
+
+    public void RestartDiver()
+    {
+        surfaceZone.GoToBase();
+        noOxygenCanvas.SetActive(false);
     }
 
     public void RefillOxygen()
