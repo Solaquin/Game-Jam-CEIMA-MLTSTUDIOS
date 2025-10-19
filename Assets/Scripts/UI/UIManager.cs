@@ -32,6 +32,7 @@ public class UIManager : MonoBehaviour
 
     private Dictionary<UIPanelType, GameObject> uiPanels;
     private bool isPaused;
+    private GameObject shopButton;
 
     void Awake()
     {
@@ -54,6 +55,11 @@ public class UIManager : MonoBehaviour
         uiPanels[UIPanelType.Main].SetActive(true);
         uiPanels[UIPanelType.RescueAnimals].SetActive(true);
         uiPanels[UIPanelType.GoHome].SetActive(true);
+
+        var mainCanvas = uiPanels[UIPanelType.Main];
+        shopButton = mainCanvas.transform.Find("ShopButton")?.gameObject;
+        if (shopButton == null)
+            Debug.LogWarning("No se encontró el botón 'ShopButton' dentro del Canvas Main.");
     }
 
     // Update is called once per frame
@@ -71,6 +77,10 @@ public class UIManager : MonoBehaviour
         bool noOxygenActive = uiPanels[UIPanelType.NoOxygen].activeSelf;
         bool isAtBase = surfaceZone.IsAtBase();
 
+        // Activar o desactivar el botón de tienda según si está en la base
+        if (shopButton != null)
+            shopButton.SetActive(isAtBase);
+
         // Bloquear todo si el jugador está sin oxígeno
         if (noOxygenActive)
         {
@@ -84,6 +94,7 @@ public class UIManager : MonoBehaviour
         // Control de inventario y tienda
         if (isAtBase)
         {
+
             if (Input.GetKeyDown(KeyCode.T))
             {
                 if (uiPanels[UIPanelType.Bag].activeSelf)
@@ -175,8 +186,12 @@ public class UIManager : MonoBehaviour
         }
         else
         {
+            bool isAtBase = surfaceZone.IsAtBase();
             Time.timeScale = 1f;
-            vacuumSystem.enabled = true;
+            if(!isAtBase)
+            {
+                vacuumSystem.enabled = true;
+            }
             surfaceZone.enabled = true;
         }
     }
