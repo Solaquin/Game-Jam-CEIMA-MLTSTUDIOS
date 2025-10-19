@@ -57,8 +57,11 @@ public class RescueAnimal : MonoBehaviour
         if (meshRenderer != null) meshRenderer.enabled = false;
         if (animalCollider != null) animalCollider.enabled = false;
 
-        diver.SetRescuedAnimal(this);
-
+        RescueInteraction rescueInteraction = diver.GetComponent<RescueInteraction>();
+        if (rescueInteraction != null)
+        {
+            rescueInteraction.SetCurrentAnimal(this);
+        }
     }
 
     public void ReachBase()
@@ -71,7 +74,13 @@ public class RescueAnimal : MonoBehaviour
         if (timer > 0)
         {
             Debug.Log($"{data.animalName} llegó a salvo. +{data.rewardMoney} monedas!");
-            GiveReward();
+            var diver = FindFirstObjectByType<DiverMovement>();
+            GiveReward(diver);
+            RescueInteraction rescueInteraction = diver.GetComponent<RescueInteraction>();
+            if (diver != null)
+            {
+                rescueInteraction.SetCurrentAnimal(null);
+            }
         }
         else
         {
@@ -82,16 +91,31 @@ public class RescueAnimal : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void GiveReward()
+    private void GiveReward(DiverMovement diver)
     {
-        // Dar dinero
+        PlayerStats playerStats = diver.GetComponent<PlayerStats>();
+        if (playerStats != null)
+        {
+            playerStats.money += data.rewardMoney;
+        }
+
     }
 
-    private void RescueFailed()
+    public void RescueFailed()
     {
         Debug.Log($"{data.animalName} no logró sobrevivir al rescate (tiempo agotado).");
         hasActiveRescue = false;
         isRescued = false;
+        timerActive = false;
+        RescueUIManager.Instance.HideTimer();
+
+        var diver = FindFirstObjectByType<DiverMovement>();
+        RescueInteraction rescueInteraction = diver.GetComponent<RescueInteraction>();
+        if (diver != null)
+        {
+            rescueInteraction.SetCurrentAnimal(null);
+        }
+
         // Opcional: destruir el objeto si querés que desaparezca tras fallar
         Destroy(gameObject);
     }

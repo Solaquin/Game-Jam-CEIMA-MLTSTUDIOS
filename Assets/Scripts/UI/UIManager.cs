@@ -1,36 +1,139 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
+
+public enum UIPanelType
+{
+    Main,
+    RescueAnimals,
+    GoHome,
+    Bag,
+    Shop,
+    NoOxygen
+}
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private List<Canvas> uiPanels;
+    [System.Serializable]
+    public struct UIPanelEntry
+    {
+        public UIPanelType type;
+        public GameObject canvas;
+    }
+
+    [SerializeField] private List<UIPanelEntry> panelsList;
+    public SurfaceZone surfaceZone;
+
+    private Dictionary<UIPanelType, GameObject> uiPanels;
+
+    void Awake()
+    {
+        // Construir el diccionario
+        uiPanels = new Dictionary<UIPanelType, GameObject>();
+        foreach (var entry in panelsList)
+        {
+            if (entry.canvas != null)
+                uiPanels[entry.type] = entry.canvas;
+        }
+    }
 
     void Start()
     {
-        foreach (var panel in uiPanels)
-        {
-            panel.enabled = false;
-        }
+        // Desactivar todos los paneles
+        foreach (var panel in uiPanels.Values)
+            panel.SetActive(false);
+
+        // Activar los que quieras al inicio
+        uiPanels[UIPanelType.Main].SetActive(true);
+        uiPanels[UIPanelType.RescueAnimals].SetActive(true);
+        uiPanels[UIPanelType.GoHome].SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        // Si NoOxygen está activo, bloquea las otras UIs
+        bool noOxygenActive = uiPanels[UIPanelType.NoOxygen].activeSelf;
+
+        if (noOxygenActive)
         {
-            uiPanels[0].enabled = !uiPanels[0].enabled;
+            uiPanels[UIPanelType.Bag].SetActive(false);
+            uiPanels[UIPanelType.RescueAnimals].SetActive(false);
+            uiPanels[UIPanelType.GoHome].SetActive(false);
+        }
+        else
+        {
+            uiPanels[UIPanelType.RescueAnimals].SetActive(true);
         }
 
-        if (Input.GetKeyDown(KeyCode.T))
+
+        if (surfaceZone.IsAtBase())
         {
-            uiPanels[1].enabled = !uiPanels[1].enabled;
+            uiPanels[UIPanelType.GoHome].SetActive(true);
+
+
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                if (uiPanels[UIPanelType.Bag].activeSelf)
+                {
+                    Toggle(UIPanelType.Bag);
+                }
+                Toggle(UIPanelType.Shop);
+            }
+            else if (Input.GetKeyDown(KeyCode.I))
+            {
+                if (uiPanels[UIPanelType.Shop].activeSelf)
+                {
+                    Toggle(UIPanelType.Shop);
+                }
+                Toggle(UIPanelType.Bag);
+            }
+
         }
+        else if(!surfaceZone.IsAtBase() && !noOxygenActive)
+        {
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                Toggle(UIPanelType.Bag);
+            }
+        }
+
+        if (surfaceZone.IsAtBase() == false && uiPanels[UIPanelType.Shop].activeSelf)
+        {
+            Toggle(UIPanelType.Shop);
+        }
+
     }
 
-    public void ToogleByIndex(int index)
+    public void Toggle(UIPanelType type)
     {
-        if (index < 0 || index >= uiPanels.Count || uiPanels[index] == null) return;
-        uiPanels[index].enabled = !uiPanels[index].enabled;
+        if (!uiPanels.ContainsKey(type))
+            return;
+
+        bool isActive = uiPanels[type].activeSelf;
+        uiPanels[type].SetActive(!isActive);
     }
+
+    public void Show(UIPanelType type)
+    {
+        if (!uiPanels.ContainsKey(type))
+            return;
+
+        foreach (var panel in uiPanels.Values)
+            panel.SetActive(false);
+
+        uiPanels[type].SetActive(true);
+    }
+
+    public void Hide(UIPanelType type)
+    {
+        if (!uiPanels.ContainsKey(type))
+            return;
+
+        uiPanels[type].SetActive(false);
+    }
+
+
+
 }

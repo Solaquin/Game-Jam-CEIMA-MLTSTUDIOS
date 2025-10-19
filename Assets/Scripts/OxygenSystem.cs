@@ -15,6 +15,7 @@ public class OxygenSystem : MonoBehaviour
     private bool isInSafeZone = false;
     private Rigidbody rb;
     private DiverMovement diverMovement;
+    private RescueInteraction rescueInteraction;
     private BagSystem bagSystem;
 
     void Start()
@@ -22,6 +23,7 @@ public class OxygenSystem : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         diverMovement = GetComponent<DiverMovement>();
         bagSystem = GetComponent<BagSystem>();
+        rescueInteraction = GetComponent<RescueInteraction>();
         currentOxygen = maxOxygen;
         noOxygenCanvas.SetActive(false);
     }
@@ -55,12 +57,18 @@ public class OxygenSystem : MonoBehaviour
         diverMovement.EnableMovement(false);
         bagSystem.ClearBag();
         noOxygenCanvas.SetActive(true);
+        if (RescueAnimal.hasActiveRescue && rescueInteraction.GetCurrentAnimal() != null)
+        {
+            rescueInteraction.GetCurrentAnimal().RescueFailed();
+        }
+        rescueInteraction.enabled = false;
     }
 
     public void RestartDiver()
     {
         surfaceZone.GoToBase();
         noOxygenCanvas.SetActive(false);
+        rescueInteraction.enabled = true;
     }
 
     public void RefillOxygen()
