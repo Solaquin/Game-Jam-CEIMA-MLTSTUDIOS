@@ -3092,7 +3092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c79357007dca7444955347688d052ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  pressEText: {fileID: 601489899}
+  pressEText: {fileID: 0}
   baseSpawnPoint: {fileID: 1735592598}
   waterSpawnPoint: {fileID: 1154248652}
   diver: {fileID: 1154049686}
@@ -4652,17 +4652,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 596020269}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &601489899 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4057585026443774786, guid: 67d9e8b2b168f154d870b749242ef63f, type: 3}
-  m_PrefabInstance: {fileID: 1699678618}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &613592156
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11900,15 +11889,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a8b17d485d556f41a1823f673fec7af, type: 3}
+--- !u!1 &1380409986 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1597969564335645406, guid: 67d9e8b2b168f154d870b749242ef63f, type: 3}
+  m_PrefabInstance: {fileID: 1699678618}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1381771322 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1559350448278587828, guid: 5a8b17d485d556f41a1823f673fec7af, type: 3}
   m_PrefabInstance: {fileID: 2002361425}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1393834303 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1597969564335645406, guid: 67d9e8b2b168f154d870b749242ef63f, type: 3}
-  m_PrefabInstance: {fileID: 1699678618}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1441483788
 GameObject:
@@ -18021,6 +18010,14 @@ PrefabInstance:
       propertyPath: collectibleLayer.m_Bits
       value: 64
       objectReference: {fileID: 0}
+    - target: {fileID: 210747659299307574, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
+      propertyPath: rescueSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 8bc102d5b3668a74d83e49dc26657bb7, type: 3}
+    - target: {fileID: 210747659299307574, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
+      propertyPath: rescueAudioSource
+      value: 
+      objectReference: {fileID: 1480115054}
     - target: {fileID: 1436860414696648504, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -18036,7 +18033,7 @@ PrefabInstance:
     - target: {fileID: 1436860414696648504, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
       propertyPath: noOxygenCanvas
       value: 
-      objectReference: {fileID: 1393834303}
+      objectReference: {fileID: 1380409986}
     - target: {fileID: 3299888160178549499, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.002

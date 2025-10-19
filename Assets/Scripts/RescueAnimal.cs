@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -23,7 +24,10 @@ public class RescueAnimal : MonoBehaviour
     [SerializeField] private float FailedRescueVolume = 0.8f;
     [SerializeField] private float finishVolume = 0.8f;
 
-
+    [Header("Reward UI (TMP en tu Canvas)")]
+    [SerializeField] private TextMeshProUGUI rewardText;   
+    [SerializeField] private float rewardShowSeconds = 1.5f; 
+    private Coroutine rewardRoutine;
 
     private void Start()
     {
@@ -45,6 +49,7 @@ public class RescueAnimal : MonoBehaviour
 
         meshRenderer = GetComponentInChildren<Renderer>();
         animalCollider = GetComponent<Collider>();
+        if (rewardText != null) rewardText.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -118,7 +123,11 @@ public class RescueAnimal : MonoBehaviour
         }
 
         hasActiveRescue = false;
-        Destroy(gameObject);
+        if (rewardRoutine != null) StopCoroutine(rewardRoutine);
+        {
+            StartCoroutine(DestroyAfterReward());
+        }
+        
     }
 
     private void GiveReward(DiverMovement diver)
@@ -132,7 +141,7 @@ public class RescueAnimal : MonoBehaviour
         {
             playerStats.money += data.rewardMoney;
         }
-        
+        ShowRewardMessage();
     }
 
     public void RescueFailed()
@@ -154,7 +163,7 @@ public class RescueAnimal : MonoBehaviour
         {
             rescueInteraction.SetCurrentAnimal(null);
         }
-        
+        if (rewardText != null) rewardText.gameObject.SetActive(false);
     }
     private void PlaySound(AudioClip clip)
     {
@@ -172,4 +181,41 @@ public class RescueAnimal : MonoBehaviour
 
         }
 }
+    private void ShowRewardMessage()
+    {
+        if (rewardText == null) return;
+
+        rewardText.text = $"¡{data.animalName} salvado!  +{data.rewardMoney} monedas";
+        rewardText.gameObject.SetActive(true);
+
+        if (rewardRoutine != null) StopCoroutine(rewardRoutine);
+        rewardRoutine = StartCoroutine(HideRewardAfterDelay());
+    }
+
+    private System.Collections.IEnumerator HideRewardAfterDelay()
+    {
+        float t = 0f;
+        while (t < rewardShowSeconds)
+        {
+            t += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        if (rewardText != null) rewardText.gameObject.SetActive(false);
+    }
+    private System.Collections.IEnumerator DestroyAfterReward()
+    {
+        // Espera exactamente lo que dura el mensaje en pantalla
+        float t = 0f;
+        while (t < rewardShowSeconds)
+        {
+            t += Time.unscaledDeltaTime;   // para que no dependa del timescale
+            yield return null;
+        }
+
+        // Asegura que el texto quede oculto
+        if (rewardText != null) rewardText.gameObject.SetActive(false);
+
+        Destroy(gameObject);
+    }
 }
+
