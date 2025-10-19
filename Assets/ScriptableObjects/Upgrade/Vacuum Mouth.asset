@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Vacuum Mouth
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   ID: 4
-  upgradeName: Vacuum Mouth
-  sprite: {fileID: 0}
-  description: 
+  upgradeName: Boca Aspiradora
+  sprite: {fileID: -1736233740, guid: 2340a71aec978be4abdfc9b306edbecd, type: 3}
+  description: "Mayor \xE1ngulo de recolecci\xF3n"
   maxLevel: 5
   costPerLevel: 96000000fa0000005e010000f4010000e8030000
   baseValue: 45
