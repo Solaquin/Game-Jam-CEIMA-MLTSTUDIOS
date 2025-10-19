@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class RescueAnimal : MonoBehaviour
 {
@@ -14,10 +15,33 @@ public class RescueAnimal : MonoBehaviour
     private Renderer meshRenderer;
     private Collider animalCollider;
 
+    [SerializeField] private AudioSource rescueAudioSource;
+    [SerializeField] private AudioClip rescueStartTimer;
+    [SerializeField] private AudioClip failedRescue;
+    [SerializeField] private AudioClip finishRescue;
+    [SerializeField] private float TimerVolume = 0.8f;
+    [SerializeField] private float FailedRescueVolume = 0.8f;
+    [SerializeField] private float finishVolume = 0.8f;
+
+
+
     private void Start()
     {
         if (data != null)
             timer = data.rescueTimeLimit;
+
+        if (rescueAudioSource == null)
+        {
+            rescueAudioSource = GetComponent<AudioSource>();
+        }
+        if (rescueAudioSource == null)
+        {
+            rescueAudioSource = gameObject.AddComponent<AudioSource>();
+        }
+         
+
+        rescueAudioSource.loop = false;
+        rescueAudioSource.playOnAwake = false;
 
         meshRenderer = GetComponentInChildren<Renderer>();
         animalCollider = GetComponent<Collider>();
@@ -51,6 +75,8 @@ public class RescueAnimal : MonoBehaviour
         timerActive = true;
         hasActiveRescue = true;
 
+        // Reproducir sonido de inicio de rescate
+        PlaySound(rescueStartTimer);
         Debug.Log($"{data.animalName} rescatado. Tiempo: {timer:F1}s para volver a base.");
 
         // En lugar de SetActive(false), solo ocultamos el modelo
@@ -73,6 +99,8 @@ public class RescueAnimal : MonoBehaviour
 
         if (timer > 0)
         {
+            PauseSound(rescueStartTimer);
+            
             Debug.Log($"{data.animalName} llegó a salvo. +{data.rewardMoney} monedas!");
             var diver = FindFirstObjectByType<DiverMovement>();
             GiveReward(diver);
@@ -84,6 +112,8 @@ public class RescueAnimal : MonoBehaviour
         }
         else
         {
+            PlaySound(failedRescue);
+            PauseSound(rescueStartTimer);
             Debug.Log($"{data.animalName} no sobrevivió al rescate :(");
         }
 
@@ -93,17 +123,23 @@ public class RescueAnimal : MonoBehaviour
 
     private void GiveReward(DiverMovement diver)
     {
+        PlaySound(finishRescue);
+        PauseSound(rescueStartTimer);
         PlayerStats playerStats = diver.GetComponent<PlayerStats>();
+        
+        
         if (playerStats != null)
         {
             playerStats.money += data.rewardMoney;
         }
-
+        
     }
 
     public void RescueFailed()
     {
         Debug.Log($"{data.animalName} no logró sobrevivir al rescate (tiempo agotado).");
+        PlaySound(failedRescue);
+        PauseSound(rescueStartTimer);
         hasActiveRescue = false;
         isRescued = false;
         timerActive = false;
@@ -120,4 +156,20 @@ public class RescueAnimal : MonoBehaviour
         }
         
     }
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null && rescueAudioSource != null)
+        {
+            rescueAudioSource.PlayOneShot(clip);
+            //Debug.Log($"ShopSystem - Sonido reproducido: {clip.name}");
+        }
+    }
+    private void PauseSound(AudioClip clip)
+    {
+        if (rescueAudioSource != null && rescueAudioSource.isPlaying)
+        {
+            rescueAudioSource.Pause();
+
+        }
+}
 }
