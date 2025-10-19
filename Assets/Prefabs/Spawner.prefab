@@ -59,6 +59,14 @@ MonoBehaviour:
   spawnLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
+  spriteVariants:
+  - {fileID: 21300000, guid: b7e48014247f5504f942eda4873c69d8, type: 3}
+  - {fileID: 21300000, guid: f9afc09e821df9b4ba82248adeafc3e5, type: 3}
+  - {fileID: 21300000, guid: 0624b055b7f05d746a1cbcc91a9232a4, type: 3}
+  - {fileID: 21300000, guid: 25562684c2c93b64c8cfd4ca1a42be69, type: 3}
+  - {fileID: 21300000, guid: 531e769bdef5cb14cb611089c94fdc44, type: 3}
+  - {fileID: 21300000, guid: dc11ad2c6da95d747ad373232579f88d, type: 3}
+  - {fileID: 21300000, guid: aebfb9193e9cf80419b721c14eec211c, type: 3}
 --- !u!1 &8821348486901952294
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,7 +21,9 @@ public class FishSpawner : MonoBehaviour
 
     public LayerMask spawnLayerMask = ~0;
 
-    // Compartido por todos los spawners para ignorar colisiones entre todos los peces
+    [Header("Sprites")]
+    public List<Sprite> spriteVariants = new List<Sprite>();
+
     private static readonly List<Collider> fishColliders = new List<Collider>();
     private Collider[] playerColliders;
 
@@ -55,6 +57,15 @@ public class FishSpawner : MonoBehaviour
                 fish.speed = Random.Range(speedRange.x, speedRange.y);
                 fish.speedAfter = Random.Range(speedAfterRange.x, speedAfterRange.y);
                 fish.SetDepthAndBehavior(zLayer, respondToPlayerAtThisZ);
+
+                if (spriteVariants != null && spriteVariants.Count > 0)
+                {
+                    var sr = fish.GetComponentInChildren<SpriteRenderer>();
+                    if (sr != null)
+                    {
+                        sr.sprite = spriteVariants[Random.Range(0, spriteVariants.Count)];
+                    }
+                }
 
                 var fc = fish.GetComponent<Collider>();
                 if (fc != null)

@@ -10632,6 +10632,29 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &876241718 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1436860414696648504, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
+  m_PrefabInstance: {fileID: 1443937455}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876241704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 995e5f446337c1d4ca2be0ed45448899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OxygenSystem
+--- !u!114 &876241720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876241704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faeb2a9da93a2f14eb28dc57f9487915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimatorVerticalSign
 --- !u!1 &902379458
 GameObject:
   m_ObjectHideFlags: 0
@@ -11185,7 +11208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b9304290bd4dc4d9b2322c0e730971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainUI
-  oxygenSystem: {fileID: 0}
+  oxygenSystem: {fileID: 876241718}
   barFill: {fileID: 1272167880}
   percentText: {fileID: 667045063}
   smooth: 8
@@ -16561,6 +16584,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5325448452601716486, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5325448452601716486, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 1037478473, guid: 79b60611679fd8245b814b42ea974075, type: 3}
@@ -16602,6 +16629,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3610673960789600227, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 876241714}
+    - targetCorrespondingSourceObject: {fileID: 3610673960789600227, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 876241720}
   m_SourcePrefab: {fileID: 100100000, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
 --- !u!1 &1444216125
 GameObject:

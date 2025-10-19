@@ -108,9 +108,15 @@ MonoBehaviour:
   player: {fileID: 0}
   speed: 2
   speedAfter: 6
-  detectionradius: 3.5
-  empujon: 0.02
-  noCollidePlayerTime: 2
+  detectionRadius: 3.5
+  respondToPlayer: 1
+  alertDuration: 1.5
+  alertRearmDelay: 0.75
+  pushOff: 0.02
+  limitY: 1
+  yMin: -500
+  yMax: 2.7
+  bounceOnLimits: 1
 --- !u!135 &6070792199279297749
 SphereCollider:
   m_ObjectHideFlags: 0
