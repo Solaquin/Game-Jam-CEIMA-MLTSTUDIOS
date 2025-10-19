@@ -57,8 +57,11 @@ public class RescueAnimal : MonoBehaviour
         if (meshRenderer != null) meshRenderer.enabled = false;
         if (animalCollider != null) animalCollider.enabled = false;
 
-        diver.SetRescuedAnimal(this);
-
+        RescueInteraction rescueInteraction = diver.GetComponent<RescueInteraction>();
+        if (rescueInteraction != null)
+        {
+            rescueInteraction.SetCurrentAnimal(this);
+        }
     }
 
     public void ReachBase()
@@ -72,6 +75,12 @@ public class RescueAnimal : MonoBehaviour
         {
             Debug.Log($"{data.animalName} llegó a salvo. +{data.rewardMoney} monedas!");
             GiveReward();
+            var diver = FindFirstObjectByType<DiverMovement>();
+            RescueInteraction rescueInteraction = diver.GetComponent<RescueInteraction>();
+            if (diver != null)
+            {
+                rescueInteraction.SetCurrentAnimal(null);
+            }
         }
         else
         {
@@ -87,11 +96,21 @@ public class RescueAnimal : MonoBehaviour
         // Dar dinero
     }
 
-    private void RescueFailed()
+    public void RescueFailed()
     {
         Debug.Log($"{data.animalName} no logró sobrevivir al rescate (tiempo agotado).");
         hasActiveRescue = false;
         isRescued = false;
+        timerActive = false;
+        RescueUIManager.Instance.HideTimer();
+
+        var diver = FindFirstObjectByType<DiverMovement>();
+        RescueInteraction rescueInteraction = diver.GetComponent<RescueInteraction>();
+        if (diver != null)
+        {
+            rescueInteraction.SetCurrentAnimal(null);
+        }
+
         // Opcional: destruir el objeto si querés que desaparezca tras fallar
         Destroy(gameObject);
     }

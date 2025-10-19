@@ -76,14 +76,12 @@ public class SurfaceZone : MonoBehaviour
                 oxygen.SetSafeZone(true);
             }
 
-            var rescuedAnimalField = typeof(DiverMovement).GetField("currentAnimal",
-                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            RescueAnimal rescuedAnimal = (RescueAnimal)rescuedAnimalField.GetValue(diver);
+            RescueInteraction rescueInteraction = diver.GetComponent<RescueInteraction>();
+            RescueAnimal rescuedAnimal = rescueInteraction.GetCurrentAnimal();
 
             if (rescuedAnimal != null)
             {
                 rescuedAnimal.ReachBase();
-                rescuedAnimalField.SetValue(diver, null);
             }
 
             if (pressEText != null)
@@ -113,5 +111,10 @@ public class SurfaceZone : MonoBehaviour
             
             isAtBase = false;
         }
+    }
+
+    public bool IsAtBase()
+    {
+        return isAtBase;
     }
 }

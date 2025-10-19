@@ -6,21 +6,23 @@ public class RescueInteraction : MonoBehaviour
     [SerializeField] private LayerMask animalLayer;
     [SerializeField] private DiverMovement playerDiverMovementReference; 
 
+    private RescueAnimal closerAnimal;
     private RescueAnimal currentAnimal;
 
     void Update()
     {
         CheckForAnimal();
 
-        if (currentAnimal != null && !RescueAnimal.hasActiveRescue)
+        if (closerAnimal != null && !RescueAnimal.hasActiveRescue)
         {
-            float timeLimit = currentAnimal.data != null ? currentAnimal.data.rescueTimeLimit : 0f;
+            float timeLimit = closerAnimal.data != null ? closerAnimal.data.rescueTimeLimit : 0f;
 
-            RescueUIManager.Instance.UpdateRescuePrompt(currentAnimal.transform.position, timeLimit);
+            RescueUIManager.Instance.UpdateRescuePrompt(closerAnimal.transform.position, timeLimit);
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                currentAnimal.Rescue(playerDiverMovementReference);
+                closerAnimal.Rescue(playerDiverMovementReference);
+                
                 RescueUIManager.Instance.HideRescuePrompt();
             }
         }
@@ -34,7 +36,7 @@ public class RescueInteraction : MonoBehaviour
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, interactRange, animalLayer);
 
-        currentAnimal = hits.Length > 0
+        closerAnimal = hits.Length > 0
             ? hits[0].GetComponent<RescueAnimal>()
             : null;
     }
@@ -44,4 +46,15 @@ public class RescueInteraction : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, interactRange);
     }
+
+    public RescueAnimal GetCurrentAnimal()
+    {
+        return currentAnimal;
+    }
+
+    public void SetCurrentAnimal(RescueAnimal animal)
+    {
+        currentAnimal = animal;
+    }
+
 }

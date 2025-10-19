@@ -21,8 +21,6 @@ public class DiverMovement : MonoBehaviour
     private bool isUnderwater = true;
     private bool canMove = true;
 
-    private RescueAnimal currentAnimal;
-
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -126,12 +124,6 @@ public class DiverMovement : MonoBehaviour
     public void EnableMovement(bool state)
     {
         canMove = state;
-    }
-
-    // método para asignar el animal rescatado desde otro script
-    public void SetRescuedAnimal(RescueAnimal animal)
-    {
-        currentAnimal = animal;
     }
     public void SetSwimSpeed(float newSpeed)
     {

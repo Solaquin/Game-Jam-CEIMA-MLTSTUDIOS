@@ -1475,7 +1475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &118147175
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3096,9 +3096,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ca4ab3997ae48478d0e66a86df3a07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
-  uiPanels:
-  - {fileID: 798272066}
-  - {fileID: 1199354479}
+  panelsList:
+  - type: 0
+    canvas: {fileID: 809508432}
+  - type: 1
+    canvas: {fileID: 1542413616}
+  - type: 2
+    canvas: {fileID: 118147174}
+  - type: 3
+    canvas: {fileID: 798272062}
+  - type: 4
+    canvas: {fileID: 1199354474}
+  - type: 5
+    canvas: {fileID: 1511530299}
+  surfaceZone: {fileID: 458286951}
 --- !u!4 &310212376
 Transform:
   m_ObjectHideFlags: 0
@@ -6715,8 +6726,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 952178012}
   m_HandleRect: {fileID: 952178011}
   m_Direction: 2
-  m_Value: 0.5000002
-  m_Size: 0.7989795
+  m_Value: 0.5
+  m_Size: 0.7989796
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8990,7 +9001,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &798272063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9111,7 +9122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &809508433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11083,8 +11094,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 920980577}
   m_HandleRect: {fileID: 920980576}
   m_Direction: 2
-  m_Value: 0.5000002
-  m_Size: 0.7989795
+  m_Value: 0.5
+  m_Size: 0.7989796
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -16928,7 +16939,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1511530300
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17145,7 +17156,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1542413617
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23063,11 +23074,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3883622524760969778, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 3883622524760969778, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.1
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3883622524760969778, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -23688,7 +23699,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -90}
+  m_AnchoredPosition: {x: 0, y: -95}
   m_SizeDelta: {x: 1500, y: 800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2004042049
