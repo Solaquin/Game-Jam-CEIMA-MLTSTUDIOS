@@ -20,7 +20,6 @@ public class InventoryUI : MonoBehaviour
     {
         RefreshInventory();
     }
-
     public void RefreshInventory()
     {
         // Limpiar slots previos
@@ -42,6 +41,11 @@ public class InventoryUI : MonoBehaviour
         weightText.text = $"{currentBagLoad}/{bagCapacity}";
 
     }
-    void OnEnable() => bagSystem.OnInventoryChanged += RefreshInventory;
+    void OnEnable()
+    {
+        bagSystem.OnInventoryChanged += RefreshInventory;
+        RefreshInventory(); // <-- forzar actualización al abrir
+    }
+    
     void OnDisable() => bagSystem.OnInventoryChanged -= RefreshInventory;
 }
