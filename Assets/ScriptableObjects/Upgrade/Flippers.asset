@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17758f4a802d974c8d28c4cb82b216f, type: 3}
   m_Name: Flippers
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
+  ID: 1
   upgradeName: Flippers
   sprite: {fileID: 0}
   description: 

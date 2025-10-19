@@ -81,4 +81,10 @@ public class BagSystem : MonoBehaviour
         }
         return totalWeight;
     }
+
+    public void SetMaxBagCapacity(float newCapacity)
+    {
+        bagCapacity = newCapacity;
+        OnInventoryChanged?.Invoke();
+    }
 }

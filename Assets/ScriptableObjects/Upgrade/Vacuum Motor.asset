@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17758f4a802d974c8d28c4cb82b216f, type: 3}
   m_Name: Vacuum Motor
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  upgradeName: Vacuum Motor
+  ID: 3
+  upgradeName: Motor Aspiradora
   sprite: {fileID: 0}
   description: 
   maxLevel: 5
