@@ -5,12 +5,13 @@ public class SurfaceZone : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI pressEText;
 
-    private Vector3 baseSpawnPoint = new Vector3(-18f, 21f, 0f);
-    private Vector3 waterSpawnPoint = new Vector3(-6f, 14f, 0f);
+    public Transform baseSpawnPoint;
+    public Transform waterSpawnPoint;
+    public DiverMovement diver;
 
     private bool isPlayerNearby = false;
     private bool isAtBase = false; 
-    private DiverMovement diver;
+    
 
     void Start()
     {
@@ -41,7 +42,6 @@ public class SurfaceZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            diver = other.GetComponent<DiverMovement>();
             if (pressEText != null)
             {
                 pressEText.gameObject.SetActive(true);
@@ -63,11 +63,11 @@ public class SurfaceZone : MonoBehaviour
         }
     }
 
-    private void GoToBase()
+    public void GoToBase()
     {
         if (diver != null)
         {
-            diver.TeleportToBase(baseSpawnPoint);
+            diver.TeleportToBase(baseSpawnPoint.position);
 
             OxygenSystem oxygen = diver.GetComponent<OxygenSystem>();
             if (oxygen != null)
@@ -98,7 +98,7 @@ public class SurfaceZone : MonoBehaviour
     {
         if (diver != null)
         {
-            diver.TeleportToWater(waterSpawnPoint);
+            diver.TeleportToWater(waterSpawnPoint.position);
             OxygenSystem oxygen = diver.GetComponent<OxygenSystem>();
             if (oxygen != null)
             {
