@@ -64,14 +64,14 @@ public class UIManager : MonoBehaviour
             TogglePausePanel();
         }
 
-        // Si el juego est� pausado, no dejar abrir ninguna otra UI
+        // Si el juego está pausado, no dejar abrir ninguna otra UI
         if (isPaused)
             return;
 
         bool noOxygenActive = uiPanels[UIPanelType.NoOxygen].activeSelf;
         bool isAtBase = surfaceZone.IsAtBase();
 
-        // Bloquear todo si el jugador est� sin ox�geno
+        // Bloquear todo si el jugador está sin oxígeno
         if (noOxygenActive)
         {
             uiPanels[UIPanelType.Bag].SetActive(false);
@@ -101,11 +101,11 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            // En inmersi�n: solo inventario
+            // En inmersión: solo inventario
             if (Input.GetKeyDown(KeyCode.I))
                 Toggle(UIPanelType.Bag);
 
-            // Cierra tienda si est� abierta fuera de la base
+            // Cierra tienda si está abierta fuera de la base
             if (uiPanels[UIPanelType.Shop].activeSelf)
                 Toggle(UIPanelType.Shop);
         }
