@@ -27,9 +27,44 @@ public class TrashSpawner : MonoBehaviour
     public float floatSpeed = 0.5f;
     public float floatAmplitude = 0.3f;
 
+    private readonly List<GameObject> spawned = new List<GameObject>();
+
     private static readonly List<Collider> trashColliders = new List<Collider>();
 
     void Start()
+    {
+        SpawnAll();
+    }
+
+    public void RespawnAll()
+    {
+        Debug.Log("Respane de bazura con exito");
+        ClearSpawned();
+        SpawnAll();
+    }
+    public void ClearSpawned()
+    {
+        foreach(var go in spawned)
+        {
+            if (!go) continue;
+
+            var col = go.GetComponent<Collider>();
+            if (col)
+            {
+                foreach (var other in trashColliders)
+                    if (other && col) Physics.IgnoreCollision(col, other, false);
+
+                col.enabled = false;
+                trashColliders.Remove(col); 
+            }
+            Destroy(go);
+        }
+        spawned.Clear();
+        trashColliders.RemoveAll(c => c == null);
+    }
+
+
+    private void SpawnAll()
     {
         if (trashPrefabs == null || trashPrefabs.Count == 0 || spawnArea == null)
         {
@@ -46,9 +81,7 @@ public class TrashSpawner : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            bool placed = false;
-
-            for (int attempt = 0; attempt < maxAttemptsPerTrash && !placed; attempt++)
+            for (int attempt = 0; attempt < maxAttemptsPerTrash; attempt++)
             {
                 Vector3 pos = new Vector3(
                     Random.Range(bounds.min.x, bounds.max.x),
@@ -56,20 +89,15 @@ public class TrashSpawner : MonoBehaviour
                     zLayer
                 );
 
-                // Evita superposición
                 if (Physics.OverlapSphere(pos, minSeparation, spawnLayerMask, QueryTriggerInteraction.Ignore).Length > 0)
                     continue;
 
                 GameObject prefab = trashPrefabs[Random.Range(0, trashPrefabs.Count)];
                 GameObject trash = Instantiate(prefab, pos, Quaternion.identity);
-                trash.layer = LayerMask.NameToLayer("collectibleLayer");
-                // Añadir flotación si está activada
-                //if (enableFloat)
-                //{
-                //    TrashFloat floatScript = trash.AddComponent<TrashFloat>();
-                //    floatScript.floatSpeed = floatSpeed;
-                //    floatScript.floatAmplitude = floatAmplitude;
-                //}
+                spawned.Add(trash);
+
+                int layer = LayerMask.NameToLayer("collectibleLayer");
+                if (layer != -1) trash.layer = layer;
 
                 var col = trash.GetComponent<Collider>();
                 if (col != null)
@@ -80,25 +108,8 @@ public class TrashSpawner : MonoBehaviour
                     trashColliders.Add(col);
                 }
 
-                placed = true;
+                break;
             }
         }
-    }
-}
-
-public class TrashFloat : MonoBehaviour
-{
-    public float floatSpeed = 0.3f;
-    public float floatAmplitude = 0.2f;
-    private Vector3 startPos;
-
-    void Start()
-    {
-        startPos = transform.position;
-    }
-
-    void Update()
-    {
-        transform.position = startPos + Vector3.up * Mathf.Sin(Time.time * floatSpeed) * floatAmplitude;
     }
 }

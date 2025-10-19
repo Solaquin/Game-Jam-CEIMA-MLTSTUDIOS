@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a5e9cb82eb2c1343b8a383c00cdad90, type: 3}
-  m_Name: Diamond
+  m_Name: Chest
   m_EditorClassIdentifier: Assembly-CSharp::TreasureData
-  itemName: Diamante
-  sprite: {fileID: -988923958, guid: d922419eea2951e4eb7963ebc360920d, type: 3}
-  description: Objeto muy valioso y raro de encontrar
-  price: 100
-  weight: 20
-  rarity: 10
+  itemName: Cofre
+  sprite: {fileID: 1302795247, guid: f06ab4b0304e5114093db34be6e8251a, type: 3}
+  description: 
+  price: 80
+  weight: 15
+  rarity: 8

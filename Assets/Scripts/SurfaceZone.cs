@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 public class SurfaceZone : MonoBehaviour
 {
@@ -10,8 +11,8 @@ public class SurfaceZone : MonoBehaviour
     public DiverMovement diver;
 
     private bool isPlayerNearby = false;
-    private bool isAtBase = false; 
-    
+    private bool isAtBase = false;
+    public List<TrashSpawner> trashSpawner = new List<TrashSpawner>();
 
     void Start()
     {
@@ -98,6 +99,7 @@ public class SurfaceZone : MonoBehaviour
         {
             diver.TeleportToWater(waterSpawnPoint.position);
             OxygenSystem oxygen = diver.GetComponent<OxygenSystem>();
+            
             if (oxygen != null)
             {
                 oxygen.SetSafeZone(false);
@@ -107,7 +109,12 @@ public class SurfaceZone : MonoBehaviour
             {
                 pressEText.text = "Press E";
             }
-                
+
+            for (int i = 0; i < trashSpawner.Count; i++)
+            {
+                var sp = trashSpawner[i];
+                if (sp != null) sp.RespawnAll();
+            }
             
             isAtBase = false;
         }
