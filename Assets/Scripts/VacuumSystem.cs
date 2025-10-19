@@ -64,7 +64,7 @@ public class VacuumSystem : MonoBehaviour
             SuctionLogic();
         //Debug.Log($"Radio actual usado en física: {suctionRadius}");
     }
-    void HandleSuctionSound()
+    public void HandleSuctionSound()
     {
         if (isSucking && !wasSucking)
         {
@@ -194,4 +194,9 @@ public class VacuumSystem : MonoBehaviour
     public float GetSuctionRadius() => suctionRadius;
     public float GetSuctionAngle() => suctionAngle;
     public bool IsSucking => isSucking;
+    public void SetIsSucking(bool _isSucking)
+    {
+        isSucking = _isSucking;
+    }
+    
 }
