@@ -18122,6 +18122,14 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7508013240689461685, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
+      propertyPath: AudioSource
+      value: 
+      objectReference: {fileID: 1480115054}
+    - target: {fileID: 7508013240689461685, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
+      propertyPath: AmbientWater
+      value: 
+      objectReference: {fileID: 8300000, guid: ec75a6cd673dd584ea2c75fef8515100, type: 3}
+    - target: {fileID: 7508013240689461685, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
       propertyPath: cameraFollow
       value: 
       objectReference: {fileID: 0}
@@ -18133,6 +18141,18 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7508013240689461685, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
+      propertyPath: ambienceVolume
+      value: 0.108
+      objectReference: {fileID: 0}
+    - target: {fileID: 7508013240689461685, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
+      propertyPath: LandAmbienceLoop
+      value: 
+      objectReference: {fileID: 8300000, guid: 26272671684dc2c488bcea7b50453cf0, type: 3}
+    - target: {fileID: 7508013240689461685, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
+      propertyPath: WaterAmbienceLoop
+      value: 
+      objectReference: {fileID: 8300000, guid: ec75a6cd673dd584ea2c75fef8515100, type: 3}
     - target: {fileID: 7508013240689461685, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
       propertyPath: firstPersonOffset.y
       value: 0
