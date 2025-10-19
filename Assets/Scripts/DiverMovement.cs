@@ -15,6 +15,7 @@ public class DiverMovement : MonoBehaviour
     private Animator animator;
 
     [SerializeField] private OxygenSystem oxygenSystem;
+    private VacuumSystem vacuumSystem;
     private Rigidbody rb;
     private Vector3 input;
     private Vector3 currentVelocity;
@@ -26,6 +27,7 @@ public class DiverMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         EnterUnderwaterMode();
         animator = GetComponent<Animator>();
+        vacuumSystem = GetComponent<VacuumSystem>();
     }
 
     void Update()
@@ -111,6 +113,7 @@ public class DiverMovement : MonoBehaviour
     public void TeleportToBase(Vector3 basePosition)
     {
         transform.position = basePosition;
+        vacuumSystem.enabled = false;
         canMove = false;
         rb.linearVelocity = Vector3.zero;
         Debug.Log("Jugador en Base");
@@ -118,6 +121,7 @@ public class DiverMovement : MonoBehaviour
     public void TeleportToWater(Vector3 waterPosition)
     {
         transform.position = waterPosition;
+        vacuumSystem.enabled = true;
         canMove = true;
         Debug.Log("Jugador en Agua");
     }
