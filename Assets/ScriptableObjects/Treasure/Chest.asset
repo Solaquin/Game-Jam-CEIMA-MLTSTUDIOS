@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: Cofre
   sprite: {fileID: 1302795247, guid: f06ab4b0304e5114093db34be6e8251a, type: 3}
   description: 
-  price: 80
+  price: 150
   weight: 15
   rarity: 8

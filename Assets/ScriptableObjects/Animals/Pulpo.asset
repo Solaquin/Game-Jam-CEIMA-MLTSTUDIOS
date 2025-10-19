@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Pulpo
   m_EditorClassIdentifier: Assembly-CSharp::AnimalData
   animalName: Pulpo
-  rewardMoney: 20
-  rescueTimeLimit: 60
+  rewardMoney: 120
+  rescueTimeLimit: 45

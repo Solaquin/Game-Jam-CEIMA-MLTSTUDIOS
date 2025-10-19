@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: Diamante
   sprite: {fileID: -988923958, guid: d922419eea2951e4eb7963ebc360920d, type: 3}
   description: Objeto muy valioso y raro de encontrar
-  price: 100
+  price: 220
   weight: 20
   rarity: 10

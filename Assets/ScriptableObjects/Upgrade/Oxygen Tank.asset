@@ -19,4 +19,4 @@ MonoBehaviour:
   maxLevel: 5
   costPerLevel: 32000000640000002c010000bc020000e8030000
   baseValue: 100
-  incrementPerLevel: 50
+  incrementPerLevel: 30
