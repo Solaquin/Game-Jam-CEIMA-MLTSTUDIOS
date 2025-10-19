@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Cursor = UnityEngine.Cursor;
 
 public enum UIPanelType
 {
@@ -10,7 +11,8 @@ public enum UIPanelType
     GoHome,
     Bag,
     Shop,
-    NoOxygen
+    NoOxygen,
+    Pause
 }
 
 public class UIManager : MonoBehaviour
@@ -24,8 +26,10 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private List<UIPanelEntry> panelsList;
     public SurfaceZone surfaceZone;
+    public GameObject diver;
 
     private Dictionary<UIPanelType, GameObject> uiPanels;
+    private bool isPaused;
 
     void Awake()
     {
@@ -53,58 +57,58 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Si NoOxygen está activo, bloquea las otras UIs
-        bool noOxygenActive = uiPanels[UIPanelType.NoOxygen].activeSelf;
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePausePanel();
+        }
 
+        // Si el juego está pausado, no dejar abrir ninguna otra UI
+        if (isPaused)
+            return;
+
+        bool noOxygenActive = uiPanels[UIPanelType.NoOxygen].activeSelf;
+        bool isAtBase = surfaceZone.IsAtBase();
+
+        // Bloquear todo si el jugador está sin oxígeno
         if (noOxygenActive)
         {
             uiPanels[UIPanelType.Bag].SetActive(false);
             uiPanels[UIPanelType.RescueAnimals].SetActive(false);
             uiPanels[UIPanelType.GoHome].SetActive(false);
-        }
-        else
-        {
-            uiPanels[UIPanelType.RescueAnimals].SetActive(true);
+            uiPanels[UIPanelType.Shop].SetActive(false);
+            return;
         }
 
-
-        if (surfaceZone.IsAtBase())
+        // Control de inventario y tienda
+        if (isAtBase)
         {
-            uiPanels[UIPanelType.GoHome].SetActive(true);
-
-
             if (Input.GetKeyDown(KeyCode.T))
             {
                 if (uiPanels[UIPanelType.Bag].activeSelf)
-                {
                     Toggle(UIPanelType.Bag);
-                }
+
                 Toggle(UIPanelType.Shop);
             }
             else if (Input.GetKeyDown(KeyCode.I))
             {
                 if (uiPanels[UIPanelType.Shop].activeSelf)
-                {
                     Toggle(UIPanelType.Shop);
-                }
+
                 Toggle(UIPanelType.Bag);
             }
-
         }
-        else if(!surfaceZone.IsAtBase() && !noOxygenActive)
+        else
         {
+            // En inmersión: solo inventario
             if (Input.GetKeyDown(KeyCode.I))
-            {
                 Toggle(UIPanelType.Bag);
-            }
-        }
 
-        if (surfaceZone.IsAtBase() == false && uiPanels[UIPanelType.Shop].activeSelf)
-        {
-            Toggle(UIPanelType.Shop);
+            // Cierra tienda si está abierta fuera de la base
+            if (uiPanels[UIPanelType.Shop].activeSelf)
+                Toggle(UIPanelType.Shop);
         }
-
     }
+
 
     public void Toggle(UIPanelType type)
     {
@@ -132,6 +136,47 @@ public class UIManager : MonoBehaviour
             return;
 
         uiPanels[type].SetActive(false);
+    }
+
+    public void ToggleInventoryPanel()
+    {
+        if (uiPanels[UIPanelType.Shop].activeSelf)
+            Toggle(UIPanelType.Shop);
+
+        Toggle(UIPanelType.Bag);
+    }
+    public void ToggleShopPanel()
+    {
+        if (uiPanels[UIPanelType.Bag].activeSelf)
+            Toggle(UIPanelType.Bag);
+
+        Toggle(UIPanelType.Shop);
+    }
+    public void TogglePausePanel()
+    {
+        Toggle(UIPanelType.Pause);  // Abre o cierra el panel de pausa
+
+        isPaused = !isPaused;
+        VacuumSystem vacuumSystem = diver.GetComponent<VacuumSystem>();
+
+        if (isPaused)
+        {
+            // Detener succión antes de desactivar
+            if (vacuumSystem != null)
+            {
+                vacuumSystem.SetIsSucking(false);
+                vacuumSystem.HandleSuctionSound();
+            }
+            Time.timeScale = 0f;
+            vacuumSystem.enabled = false;
+            surfaceZone.enabled = false;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            vacuumSystem.enabled = true;
+            surfaceZone.enabled = true;
+        }
     }
 
 
