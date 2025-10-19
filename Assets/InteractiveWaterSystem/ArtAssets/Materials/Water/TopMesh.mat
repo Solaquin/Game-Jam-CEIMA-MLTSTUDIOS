@@ -60,7 +60,7 @@ Material:
     m_Colors:
     - _FoamColor: {r: 0.73202205, g: 0.76220703, b: 0.8867924, a: 1}
     - _ReflectionOffset: {r: 0, g: -0.0005, b: 0, a: 0}
-    - _WaterColor: {r: 0.058339275, g: 0.39609596, b: 0.5377358, a: 0.8}
+    - _WaterColor: {r: 0.21244211, g: 0.47499833, b: 0.5849056, a: 0.8}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &2936827657523718876
