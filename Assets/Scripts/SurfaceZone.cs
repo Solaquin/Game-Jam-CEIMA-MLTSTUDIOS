@@ -5,8 +5,8 @@ public class SurfaceZone : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI pressEText;
 
-    private Vector3 baseSpawnPoint = new Vector3(0f, 33f, 0f);
-    private Vector3 waterSpawnPoint = new Vector3(9f, 30f, 0f);
+    private Vector3 baseSpawnPoint = new Vector3(-18f, 21f, 0f);
+    private Vector3 waterSpawnPoint = new Vector3(-6f, 14f, 0f);
 
     private bool isPlayerNearby = false;
     private bool isAtBase = false; 

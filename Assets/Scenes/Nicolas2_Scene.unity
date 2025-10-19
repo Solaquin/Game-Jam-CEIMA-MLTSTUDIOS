@@ -3087,7 +3087,7 @@ GameObject:
   - component: {fileID: 1873276398}
   - component: {fileID: 1873276397}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: RescueFishesCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
