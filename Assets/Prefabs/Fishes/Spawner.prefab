@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a23d678bceec34a9e3c9f91fb961d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FishSpawner
+  fishPrefabs:
+  - {fileID: 4497856058540483652, guid: d551a5e3c159d704186a3de6203fb602, type: 3}
+  - {fileID: 4497856058540483652, guid: 908eb937b9a4fdc4b8b9e7590eeed0fc, type: 3}
+  - {fileID: 4497856058540483652, guid: 7176e979fc688424895e7f527ef4629c, type: 3}
+  - {fileID: 4497856058540483652, guid: 984651ab536e32b4d898583a6c86ef59, type: 3}
   fishPrefab: {fileID: 4497856058540483652, guid: d551a5e3c159d704186a3de6203fb602, type: 3}
   player: {fileID: 0}
   spawnArea: {fileID: 5834876250491068783}
@@ -59,14 +64,6 @@ MonoBehaviour:
   spawnLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  spriteVariants:
-  - {fileID: 21300000, guid: b7e48014247f5504f942eda4873c69d8, type: 3}
-  - {fileID: 21300000, guid: f9afc09e821df9b4ba82248adeafc3e5, type: 3}
-  - {fileID: 21300000, guid: 0624b055b7f05d746a1cbcc91a9232a4, type: 3}
-  - {fileID: 21300000, guid: 25562684c2c93b64c8cfd4ca1a42be69, type: 3}
-  - {fileID: 21300000, guid: 531e769bdef5cb14cb611089c94fdc44, type: 3}
-  - {fileID: 21300000, guid: dc11ad2c6da95d747ad373232579f88d, type: 3}
-  - {fileID: 21300000, guid: aebfb9193e9cf80419b721c14eec211c, type: 3}
 --- !u!1 &8821348486901952294
 GameObject:
   m_ObjectHideFlags: 0
