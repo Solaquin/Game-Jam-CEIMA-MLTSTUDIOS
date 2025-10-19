@@ -9,8 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: fc3705684b8aba344a2b176cea29f565
   - enabled: 1
-    path: Assets/Scenes/Escena Final Solaquin.unity
-    guid: b8df2e844217dc845b224fc72021f499
+    path: Assets/Scenes/Intro.unity
+    guid: cb32f82a8ef47144da4da6d8e1943633
+  - enabled: 1
+    path: Assets/Scenes/Escena Final.unity
+    guid: 89da02858bcf62949ad57cc4cef2cc14
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
