@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 8781610828671836716}
   - component: {fileID: 3741436921218376095}
   - component: {fileID: 285888855116482614}
-  - component: {fileID: 8629980763930247929}
   m_Layer: 0
-  m_Name: Straw
+  m_Name: TV
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,8 +80,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.45666432, g: 1, b: 0.4009434, a: 1}
+  m_Sprite: {fileID: -688662523, guid: 0773f7f18e0354844910a4a206e38cd5, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -113,16 +112,3 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8629980763930247929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1429266309596426139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c86d14dd8a7c1b648aa44ed2889818fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TrashPickUp
-  data: {fileID: 11400000, guid: c09146c63c35e0f478d24d11c60acb6b, type: 2}
