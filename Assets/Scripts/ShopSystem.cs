@@ -14,9 +14,12 @@ public class ShopSystem : MonoBehaviour
     [SerializeField] private UpgradeData[] availableUpgrades;
 
     [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip buySound;  
     [SerializeField] private AudioClip sellSound;   
-    [SerializeField] private AudioClip errorSound;  
+    [SerializeField] private AudioClip errorSound;
+    [SerializeField] private float bagSystemVolume = 0.7f;
+
 
     // Diccionario temporal con los niveles de mejora actuales
     private Dictionary<UpgradeData, int> upgradeLevels = new();
@@ -26,6 +29,16 @@ public class ShopSystem : MonoBehaviour
     {
         if (vacuumSystem == null)
             vacuumSystem = FindFirstObjectByType<VacuumSystem>();
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
+        audioSource.volume = bagSystemVolume;
 
         InitializeUpgrades();
     }
@@ -126,10 +139,10 @@ public class ShopSystem : MonoBehaviour
     }
     private void PlaySound(AudioClip clip)
     {
-        if (clip != null)
+        if (clip != null && audioSource != null)
         {
-            AudioSource.PlayClipAtPoint(clip, transform.position);
-            //Debug.Log($"Sonido reproducido: {clip.name}");
+            audioSource.PlayOneShot(clip);
+            //Debug.Log($"ShopSystem - Sonido reproducido: {clip.name}");
         }
     }
 }
