@@ -13,6 +13,11 @@ public class ShopSystem : MonoBehaviour
     [Header("Available Upgrades")]
     [SerializeField] private UpgradeData[] availableUpgrades;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip buySound;  
+    [SerializeField] private AudioClip sellSound;   
+    [SerializeField] private AudioClip errorSound;  
+
     // Diccionario temporal con los niveles de mejora actuales
     private Dictionary<UpgradeData, int> upgradeLevels = new();
 
@@ -49,6 +54,7 @@ public class ShopSystem : MonoBehaviour
         if (currentLevel >= upgrade.maxLevel)
         {
             Debug.Log("Ya alcanzaste el nivel máximo.");
+            PlaySound(errorSound);
             return false;
         }
 
@@ -57,6 +63,7 @@ public class ShopSystem : MonoBehaviour
         if (playerStats.money < cost)
         {
             Debug.Log("No tienes suficiente dinero.");
+            PlaySound(errorSound);
             return false;
         }
         playerStats.money -= cost;
@@ -87,7 +94,7 @@ public class ShopSystem : MonoBehaviour
             }
         }
 
-        
+        PlaySound(buySound);
 
         Debug.Log($"Comprado {upgrade.upgradeName}, nuevo nivel: {upgradeLevels[upgrade]}, valor: {newValue}");
         return true;
@@ -113,7 +120,16 @@ public class ShopSystem : MonoBehaviour
         // Sumar dinero
         playerStats.money += total;
 
+        PlaySound(sellSound);
         Debug.Log($"Vendido {quantity}x {item.data.name} por {total} monedas.");
         return true;
+    }
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null)
+        {
+            AudioSource.PlayClipAtPoint(clip, transform.position);
+            //Debug.Log($"Sonido reproducido: {clip.name}");
+        }
     }
 }

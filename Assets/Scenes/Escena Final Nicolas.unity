@@ -3086,7 +3086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   panelsList: []
-  surfaceZone: {fileID: 0}
+  surfaceZone: {fileID: 458286951}
 --- !u!4 &310212376
 Transform:
   m_ObjectHideFlags: 0
@@ -6668,7 +6668,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 952178011}
   m_Direction: 2
   m_Value: 0.5000002
-  m_Size: 0.79897964
+  m_Size: 0.7989795
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7489,6 +7489,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 88f1a366459fdd04690ec97edfa2eb7e, type: 2}
   - {fileID: 11400000, guid: d3dcc0a48ecfc474a96ec83d7e12574c, type: 2}
   - {fileID: 11400000, guid: 21778535946034a40bc0dd4b39793ede, type: 2}
+  buySound: {fileID: 8300000, guid: 276eaef5f0b7c274a848ce9d700c2c33, type: 3}
+  sellSound: {fileID: 8300000, guid: 81dbfacf1e5112b40a2089fb97e7d02f, type: 3}
+  errorSound: {fileID: 8300000, guid: 00486cebf589d03459dafd72074f5a2d, type: 3}
 --- !u!1 &730965294
 GameObject:
   m_ObjectHideFlags: 0
@@ -9009,8 +9012,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainUI
   oxygenSystem: {fileID: 1154049685}
+  playerStats: {fileID: 0}
   barFill: {fileID: 1183783864}
   percentText: {fileID: 615086084}
+  moneyText: {fileID: 0}
   smooth: 8
   colorByPercent:
     serializedVersion: 2
@@ -10922,7 +10927,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 920980576}
   m_Direction: 2
   m_Value: 0.5000002
-  m_Size: 0.79897964
+  m_Size: 0.7989795
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -18038,7 +18043,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1043909070}
   m_HandleRect: {fileID: 1043909069}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -22055,7 +22060,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1427326972}
   m_HandleRect: {fileID: 1427326971}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
