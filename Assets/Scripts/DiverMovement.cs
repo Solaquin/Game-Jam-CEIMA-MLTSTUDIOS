@@ -108,12 +108,6 @@ public class DiverMovement : MonoBehaviour
 
         if (oxygenSystem != null)
             oxygenSystem.SetSafeZone(true);
-
-        if (currentAnimal != null)
-        {
-            currentAnimal.ReachBase();
-            currentAnimal = null; 
-        }
     }
 
     public void TeleportToBase(Vector3 basePosition)
