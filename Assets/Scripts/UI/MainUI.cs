@@ -20,7 +20,7 @@ public class MainUI : MonoBehaviour
 
     void Reset()
     {
-        if (oxygenSystem == null) oxygenSystem = FindObjectOfType<OxygenSystem>();
+        if (oxygenSystem == null) oxygenSystem = FindFirstObjectByType<OxygenSystem>();
         if (barFill == null) barFill = GetComponentInChildren<Image>();
         if (percentText == null) percentText = GetComponentInChildren<TextMeshProUGUI>();
     }
