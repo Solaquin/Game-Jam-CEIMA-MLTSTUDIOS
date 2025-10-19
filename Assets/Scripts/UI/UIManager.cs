@@ -90,6 +90,11 @@ public class UIManager : MonoBehaviour
             uiPanels[UIPanelType.Shop].SetActive(false);
             return;
         }
+        else
+        {
+            uiPanels[UIPanelType.RescueAnimals].SetActive(true);
+            uiPanels[UIPanelType.GoHome].SetActive(true);
+        }
 
         // Control de inventario y tienda
         if (isAtBase)
