@@ -14,11 +14,12 @@ public class DiverMovement : MonoBehaviour
     [Header("Animator")]
     private Animator animator;
 
-
+    [SerializeField] private OxygenSystem oxygenSystem;
     private Rigidbody rb;
     private Vector3 input;
     private Vector3 currentVelocity;
     private bool isUnderwater = true;
+    private bool canMove = true;
 
     private RescueAnimal currentAnimal;
 
@@ -32,7 +33,7 @@ public class DiverMovement : MonoBehaviour
     void Update()
     {
 
-        
+        if (!canMove) return;
         input.x = Input.GetAxis("Horizontal");
         if (isUnderwater)
             input.y = Input.GetAxis("Vertical");
@@ -47,6 +48,7 @@ public class DiverMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!canMove) return;
         HandleMovement();
     }
 
@@ -85,6 +87,9 @@ public class DiverMovement : MonoBehaviour
         rb.useGravity = false;
         rb.linearDamping = 2f;
         Debug.Log("Agua");
+
+        if (oxygenSystem != null)
+            oxygenSystem.SetSafeZone(false);
     }
 
     void EnterLandMode()
@@ -94,11 +99,32 @@ public class DiverMovement : MonoBehaviour
         rb.linearDamping = 0f;
         Debug.Log("Tierra");
 
+        if (oxygenSystem != null)
+            oxygenSystem.SetSafeZone(true);
+
         if (currentAnimal != null)
         {
             currentAnimal.ReachBase();
-            currentAnimal = null; // limpiamos la referencia
+            currentAnimal = null; 
         }
+    }
+
+    public void TeleportToBase(Vector3 basePosition)
+    {
+        transform.position = basePosition;
+        canMove = false;
+        rb.linearVelocity = Vector3.zero;
+        Debug.Log("Jugador en Base");
+    }
+    public void TeleportToWater(Vector3 waterPosition)
+    {
+        transform.position = waterPosition;
+        canMove = true;
+        Debug.Log("Jugador en Agua");
+    }
+    public void EnableMovement(bool state)
+    {
+        canMove = state;
     }
 
     // método para asignar el animal rescatado desde otro script
