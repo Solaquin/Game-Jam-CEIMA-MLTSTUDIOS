@@ -101,8 +101,6 @@ public class VacuumSystem : MonoBehaviour
         suctionPoint.rotation = Quaternion.Euler(0, 0, angle);
     }
 
-
-
     void SuctionLogic()
     {
         Collider[] hits = Physics.OverlapSphere(suctionPoint.position, suctionRadius, collectibleLayer);
@@ -113,15 +111,18 @@ public class VacuumSystem : MonoBehaviour
             if (IsInCone(hit.transform.position))
             {
                 Rigidbody rb = hit.attachedRigidbody;
+                ScriptableObject collectibleItem = hit.gameObject.GetComponent<CollectibleItem>().itemData;
+
+                if (collectibleItem == null) 
                 if (rb == null) continue;
 
                 Vector3 direction = (suctionPoint.position - rb.position).normalized;
                 rb.AddForce(direction * suctionForce, ForceMode.Acceleration);
 
                 float distance = Vector3.Distance(rb.position, suctionPoint.position);
-                if (distance < absorbDistance)
+                if (distance < absorbDistance && bagSystem.canAddNextItem(collectibleItem, 1))
                 {
-                    bagSystem.AddItem(hit.gameObject.GetComponent<CollectibleItem>().itemData, 1);
+                    bagSystem.AddItem(collectibleItem, 1);
                     if (collectSound != null && audioSource != null)
                     {
                         audioSource.PlayOneShot(collectSound, collectVolume);

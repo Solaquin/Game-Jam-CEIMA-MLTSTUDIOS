@@ -1420,6 +1420,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrashSpawner (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4101,6 +4105,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrashSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4396,6 +4404,10 @@ PrefabInstance:
     - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
       propertyPath: m_Name
       value: TrashSpawner (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5368,6 +5380,10 @@ PrefabInstance:
     - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
       propertyPath: m_Name
       value: TrashSpawner (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9754,6 +9770,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrashSpawner (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12452,6 +12472,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrashSpawner (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14360,6 +14384,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 8bc102d5b3668a74d83e49dc26657bb7, type: 3}
     - target: {fileID: 210747659299307574, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
+      propertyPath: interactRange
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 210747659299307574, guid: d4182756b56e76643b1e1e80f38d99d8, type: 3}
       propertyPath: rescueAudioSource
       value: 
       objectReference: {fileID: 1480115054}
@@ -15936,6 +15964,10 @@ PrefabInstance:
     - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
       propertyPath: m_Name
       value: TrashSpawner (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17547,6 +17579,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrashSpawner (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18792,6 +18828,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrashSpawner (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19556,6 +19596,10 @@ PrefabInstance:
     - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
       propertyPath: m_Name
       value: TrashSpawner (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22262,6 +22306,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrashSpawner (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -22578,6 +22626,10 @@ PrefabInstance:
     - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
       propertyPath: m_Name
       value: TrashSpawner (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -27703,6 +27755,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrashSpawner (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -27779,6 +27835,10 @@ PrefabInstance:
     - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
       propertyPath: m_Name
       value: TrashSpawner (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28386,6 +28446,10 @@ PrefabInstance:
     - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
       propertyPath: m_Name
       value: TrashSpawner (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -29216,6 +29280,10 @@ PrefabInstance:
     - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
       propertyPath: m_Name
       value: TrashSpawner (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -34506,6 +34574,10 @@ PrefabInstance:
     - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
       propertyPath: m_Name
       value: TrashSpawner (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9024162146816074439, guid: 5a3bf72b48acde9439d63d22560af994, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8561539873250254692}
   - component: {fileID: 4923206987234297212}
   - component: {fileID: 6838877021905396076}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: TrashSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
