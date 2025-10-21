@@ -18,6 +18,7 @@ public class InventoryUI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        bagSystem.OnInventoryChanged += RefreshInventory;
         RefreshInventory();
     }
     public void RefreshInventory()
@@ -37,15 +38,8 @@ public class InventoryUI : MonoBehaviour
         }
 
         bagCapacity = bagSystem.bagCapacity;
-        currentBagLoad = bagSystem.currentWeight;
+        currentBagLoad = bagSystem.GetCurrentWeight();
         weightText.text = $"{currentBagLoad}/{bagCapacity}";
 
     }
-    void OnEnable()
-    {
-        bagSystem.OnInventoryChanged += RefreshInventory;
-        RefreshInventory(); // <-- forzar actualización al abrir
-    }
-    
-    void OnDisable() => bagSystem.OnInventoryChanged -= RefreshInventory;
 }
