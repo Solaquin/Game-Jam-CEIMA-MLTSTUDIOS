@@ -68,11 +68,13 @@ public class BagSystem : MonoBehaviour
             {
                 items.Remove(existingItem);
             }
+
+            currentWeight = GetCurrentWeight();
             OnInventoryChanged?.Invoke();
         }
     }
 
-    float GetCurrentWeight()
+    public float GetCurrentWeight()
     {
         float totalWeight = 0f;
         foreach (BagItem bagItem in items)
