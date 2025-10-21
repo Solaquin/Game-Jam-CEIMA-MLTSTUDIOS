@@ -6793,6 +6793,10 @@ PrefabInstance:
       propertyPath: surfaceZone
       value: 
       objectReference: {fileID: 458286951}
+    - target: {fileID: 8844628316241048331, guid: 67d9e8b2b168f154d870b749242ef63f, type: 3}
+      propertyPath: m_Name
+      value: PauseCanvas
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

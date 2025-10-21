@@ -43,8 +43,12 @@ public class SceneManagerSimple : MonoBehaviour
         if (fadeGroup) fadeGroup.alpha = 1f; // arrancamos en negro → haremos fade-in
     }
 
+
+
     void Start()
     {
+        SceneManager.sceneLoaded += OnSceneLoad;
+
         // Solo mostrar intro automáticamente si así lo configuraste
         if (showIntroOnStart && !s_introShownOnce && introCanvas != null)
         {
@@ -65,6 +69,16 @@ public class SceneManagerSimple : MonoBehaviour
         if (_waitingIntroInput && anyKeyToContinue && Input.anyKeyDown)
         {
             OnIntroContinue();
+        }
+    }
+
+    public void OnSceneLoad(Scene scene, LoadSceneMode mode)
+    {
+        Button extBtn = GameObject.Find("ExitBtn")?.GetComponent<Button>();
+        if (extBtn != null)
+        {
+            extBtn.onClick.RemoveAllListeners();
+            extBtn.onClick.AddListener(() => SceneManagerSimple.I.LoadByName("MainMenu"));
         }
     }
 
@@ -118,7 +132,11 @@ public class SceneManagerSimple : MonoBehaviour
     // ==============================
     // Públicos extra (por si los quieres en otros botones)
     // ==============================
-    public void LoadByName(string sceneName) => StartCoroutine(LoadDirect(sceneName));
+    public void LoadByName(string sceneName)
+    {
+        Time.timeScale = 1f;
+        StartCoroutine(LoadDirect(sceneName)); 
+    }
     public void Reload() => LoadByName(SceneManager.GetActiveScene().name);
     public void Next()
     {
