@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class BagSystem : MonoBehaviour
@@ -14,27 +15,10 @@ public class BagSystem : MonoBehaviour
     public bool AddItem(ScriptableObject item, int amount = 1)
     {
         currentWeight = GetCurrentWeight();
-        float itemWeight = 0f;
 
-        if (item is TreasureData treasure)
-        {
-            itemWeight = treasure.weight * amount;
-        }
-        else if (item is TrashData trash)
-        {
-            itemWeight = trash.weight * amount;
-        }
-        else
-        {
-            Debug.Log("Item type not recognized.");
+        if (canAddNextItem(item, amount) == false)
             return false;
-        }
-
-        if (currentWeight + itemWeight > bagCapacity)
-        {
-            Debug.Log("Cannot add item. Bag capacity exceeded.");
-            return false;
-        }
+        
 
         //Verificar si el item ya existe en la bolsa
         BagItem existingItem = items.Find(x => x.data == item);
@@ -95,5 +79,32 @@ public class BagSystem : MonoBehaviour
         items.Clear();
         currentWeight = 0f;
         OnInventoryChanged?.Invoke();
+    }
+
+    public bool canAddNextItem(ScriptableObject item, int amount)
+    {
+        float itemWeight = 0f;
+
+        if (item is TreasureData treasure)
+        {
+            itemWeight = treasure.weight * amount;
+        }
+        else if (item is TrashData trash)
+        {
+            itemWeight = trash.weight * amount;
+        }
+        else
+        {
+            Debug.Log("Item type not recognized.");
+            return false;
+        }
+
+        if (currentWeight + itemWeight > bagCapacity)
+        {
+            Debug.Log("Cannot add item. Bag capacity exceeded.");
+            return false;
+        }
+
+        return true;
     }
 }
